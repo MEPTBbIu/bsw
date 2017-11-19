@@ -1,0 +1,118 @@
+/* line 1, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr {
+  margin: 0;
+  padding-bottom: 2.2rem;
+  list-style-type: none;
+}
+
+/* line 8, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li {
+  display: inline-block;
+  text-align: center;
+  line-height: 4.5rem;
+  padding: 0 0.7rem;
+  cursor: pointer;
+}
+
+/* line 17, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li span {
+  padding: 0 1.5rem;
+}
+
+@media (max-width: 650px) {
+  /* line 24, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+  .progtrckr li span {
+    display: none;
+  }
+}
+
+/* line 30, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+.progtrckr em {
+  display: none;
+  font-weight: 700;
+  padding-left: 1rem;
+}
+
+@media (max-width: 650px) {
+  /* line 39, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+  .progtrckr em {
+    display: inline;
+  }
+}
+
+/* line 45, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-todo {
+  color: silver;
+  border-bottom: 4px solid silver;
+}
+
+/* line 51, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-doing {
+  color: black;
+  border-bottom: 4px solid #33C3F0;
+}
+
+/* line 57, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-done {
+  color: black;
+  border-bottom: 4px solid #33C3F0;
+}
+
+/* line 63, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li:after {
+  content: "\00a0\00a0";
+}
+
+/* line 68, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li:before {
+  position: relative;
+  bottom: -3.7rem;
+  float: left;
+  left: 50%;
+}
+
+/* line 76, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-todo:before {
+  content: "\039F";
+  color: silver;
+  background-color: white;
+  width: 1.2em;
+  line-height: 1.4em;
+}
+
+/* line 85, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-todo:hover:before {
+  color: #0FA0CE;
+}
+
+/* line 90, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-doing:before {
+  content: "\2022";
+  color: white;
+  background-color: #33C3F0;
+  width: 1.2em;
+  line-height: 1.2em;
+  border-radius: 1.2em;
+}
+
+/* line 100, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-doing:hover:before {
+  color: #0FA0CE;
+}
+
+/* line 105, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-done:before {
+  content: "\2713";
+  color: white;
+  background-color: #33C3F0;
+  width: 1.2em;
+  line-height: 1.2em;
+  border-radius: 1.2em;
+}
+
+/* line 115, E:/.prj/lo/BSWClientApp/src/components/StepByStep/stepbystep.scss */
+ol.progtrckr li.progtrckr-done:hover:before {
+  color: #0FA0CE;
+}
+
+/*# sourceMappingURL=../../../build/components/StepByStep/stepbystep.map */

@@ -1,0 +1,140 @@
+html:not([style-scope]):not(.style-scope).freebird,
+body:not([style-scope]):not(.style-scope).freebirdLightBackground { background-color: rgb(236, 239, 241); }
+
+
+.freebirdLightBackground { background-color: rgb(236, 239, 241); }
+
+body {
+	background-color: #ede7f6;
+	font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+	margin: 0;
+}
+
+
+.HeaderMaster-violet {
+	background-color: rgb(103, 58, 183);
+	color: rgba(255, 255, 255, 1);
+}
+
+.form-Banner { height: 220px; }
+
+.HeaderMaster-gray {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.form-ContentWrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+form {
+	display: block;
+	margin-top: 0em;
+}
+
+
+
+.form-CenteredContent {
+	margin: auto;
+	width: 640px;
+}
+
+.form-Card:first-of-type { margin-top: -200px; }
+
+
+.form-Card {
+	background-color: #fff;
+	margin-bottom: 48px;
+	-webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+	word-wrap: break-word;
+}
+
+
+.AccentBackground {
+	background-color: rgb(178, 235, 242);
+	color: rgba(0, 0, 0, 1);
+}
+
+.form-ViewAccentBanner { height: 8px; }
+
+.form-ViewFormContent {
+	color: rgba(0, 0, 0, .87);
+	padding: 34px 17px;
+}
+
+.form-ViewFormContent > div,
+.form-ViewFormContent > .form-ViewItemList > .form-ViewSubmitMessage { padding: 0 17px; }
+
+.form-ViewHeaderHeader { margin-bottom: 22px; }
+
+.form-ViewHeaderTitleRow {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.form-ViewHeader--TitleRow {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.form-ViewHeader--SubTitle {
+	color: #000;
+	font-size: 16px;
+	line-height: 125%;
+	box-sizing: border-box;
+	width: 100%;
+	text-align: center;
+	padding-top: 12px;
+	margin: 0 auto;
+}
+
+.form-ViewHeader--Title {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 28px;
+	line-height: 135%;
+	width: 100%;
+	min-width: 0%;
+	text-align: center;
+	padding-top: 12px;
+	text-transform: uppercase; 
+
+}
+
+.form-ViewHeader--RequiredLegend { color: #db4437; }
+
+.form-ViewHeader--RequiredLegend,
+.form-ViewHeader--Disclosure {
+	margin-top: 22px;
+	font-size: 13px;
+}
+
+.form-ViewFormContent > div,
+.form-ViewFormContent
+> .form-ViewItemList
+> .form-ViewSubmitMessage { padding: 0 17px; }
+
+.form-ViewHeaderHeader { margin-bottom: 22px; }
+
+
+
+.form-ViewFormContent > .form-ViewItemList { padding: 0; }
+
+.form-ViewFormContent > div,
+.form-ViewFormContent > .form-ViewItemList > .form-ViewSubmitMessage { padding: 0 17px; }
+
+.form-ViewItems--item {
+	background-color: transparent;
+	margin-top: 2px;
+	padding: 16px 17px;
+	page-break-inside: avoid;
+	-webkit-transition: background-color 200ms cubic-bezier(0.0,0.0,0.2,1);
+	transition: background-color 200ms cubic-bezier(0.0,0.0,0.2,1);
+}

@@ -1,0 +1,515 @@
+/**
+ * CoffeeCup Software's Empire: Main Javascript Library
+ *
+ * This file contains main javascript library for the
+ * empire application.
+ *
+ * @author     Jeff Welch <jw@coffeecup.com>
+ * @category   Empire
+ * @package    Public
+ * @copyright  Copyright (c) 2006-2015 CoffeeCup Software, Inc. (http://www.coffeecup.com/)
+ * @version    $Id$
+ */
+
+$(document).ready(function() {
+  // Responsive sign-up
+  $('#responsive-signup-modal').submit(function(event){
+    event.preventDefault();
+
+    var $form = $(this);
+
+    // Post the form
+    var jqxhr = $.post($form.attr('action'), $form.serialize(), function(data){
+      $form.find("input.error").removeClass('error');
+    });
+
+    // After the form returns
+    jqxhr.done(function(data){
+      var $data = $.parseJSON(data),
+        $messageBox = $("#responsive-signup-status"),
+        $message = $("#responsive-signup-status .message"),
+        $errorText = $form.find("p.error");
+
+        // If successful, let them know!
+      if($data.response.status === "success") {
+        $("#responsive-signup-modal").fadeOut(400, function(){
+          $("#responsive-modal > .modal-header > h3").text("The Hard Part Is Over");
+          $("#responsive-message-modal").append($("<div class=\"row\"><div class=\"span-12\"><p>Now that you are registered to receive responsive news and updates you can sit back, relax and browse our site. We'll notify you as soon as more information on on our responsive series becomes available. You'll be one of the first people we tell!</p><p>Thanks a lot!</p><p>The CoffeeCup Team</p></div></div>")).fadeIn();
+        });
+      } else {
+        $form.find("input[type='email']").addClass('error');
+      }
+      // If there is a failure
+    }).fail(function(){
+      alert("Whoops! Something went wrong.  Please try again.");
+    });
+  });
+
+// logo area image
+if (!$.support.opacity) {
+  $("#logo-img").empty().append("<img src=\"/images/branding/coffeecup_nav_logo.png\"/>")
+    .css({
+      'background-image': 'none',
+      'background-color': 'transparent',
+      'padding': '0px',
+      'box-shadow': 'none'
+    });
+}
+
+$.defaultText = {
+  settings: {
+    message_class: 'description_text',
+    message: 'Your text goes here'
+  }
+}
+$.fn.extend({
+    defaultText: function(settings) {
+        var settings = $.extend({}, $.defaultText.settings, settings);
+        $(this).each(function(){
+            var input = $(this);
+            input.focus(function(){
+                if(input.val() == settings.message) {
+                    input.val('').removeClass(settings.message_class);
+                }
+            }).blur(function(){
+                if(input.val() == '') {
+                    input.val(settings.message);
+                }
+                if(input.val() == settings.message) {
+                    input.addClass(settings.message_class);
+                }
+            }).blur().closest('form').submit(function(){
+                if(input.val() == settings.message) {
+                    input.val('').removeClass(settings.message_class);
+                }
+            });
+        });
+        return $(this);
+    }
+});
+
+    // Animate scroll when link has the scroller class
+    if(location.hash && location.hash.indexOf("#scrollTo") != -1) {
+        var hash_element = $(location.hash.replace('#scrollTo', '#'));
+        if(hash_element.length) {
+            setTimeout(function(){
+              $('html, body').animate({scrollTop: hash_element.offset().top}, 1000);
+            }, 500);
+        }
+    }
+    $("a.scroller").each(function(){
+        $(this).attr('href', $(this).attr('href').replace("#", "#scrollTo"));
+    });
+
+    // Animate "back to top" links
+    $("a span:contains('Back to Top')").each(function(){
+        var parent_anchor = $(this).parents('a');
+        parent_anchor.click(function(event){
+            event.preventDefault();
+            $('html, body').animate({scrollTop: $(parent_anchor.attr('href')).offset().top}, 1000);
+        })
+    });
+
+   // check for cookies!
+   var cookiesEnabled = 'cookie' in document && document.cookie.length > 0 || ~(document.cookie = 'cookietest').indexOf.call(document.cookie, 'cookietest');
+   if(!cookiesEnabled) {
+      var cookie_message = '<div id="requires_cookies"><p><b>Wait!</b> Your browser needs to have cookies enabled to use our website. <a href="/help/articles/372/">Learn how to enable cookies</a>.</p></div>';
+      $('body').addClass('has_cookie_warning').prepend(cookie_message);
+   }
+
+   // behavior for the main navigation
+   var header_menu_active = false;
+   $('.gu_click').click(function(event){
+      event.preventDefault();
+      $('.header_form').hide();
+      $("#"+$(this).data('trigger')).toggle();
+      if($(this).attr('id') == 'global_search_icon'){ $('#search_box').focus(); }
+      $('body').prepend('<div id="gu_overlay" class="ccui_overlay">&nbsp;</div>');
+      $('#gu_overlay').bind('click',function(){
+         $('.header_form').hide();
+         $(this).detach();
+         if($(this).attr('id') == 'global_search_icon'){ $('#search_box').blur(); }
+      });
+   });
+
+   $('.gu_menu').click(function(event){
+      event.preventDefault();
+      var target = $("#"+$(this).data('trigger'));
+      target.toggle();
+      $('body').prepend('<div id="gu_overlay" class="ccui_overlay">&nbsp;</div>');
+      $('#gu_overlay').bind('click',function(){
+         target.hide();
+         $(this).detach();
+      });
+   });
+
+   var recaptcha_initialized = false;
+
+   $("#global_create_account_button").click(function(){
+    var recaptcha_apikey = $('#recaptcha').data('apikey');
+      if(recaptcha_initialized == false) {
+        $.getScript("//www.google.com/recaptcha/api/js/recaptcha_ajax.js", function(){
+           recaptcha_initialized = true;
+           Recaptcha.create(recaptcha_apikey, "recaptcha", { theme: "white" });
+        });
+      }
+      if(recaptcha_initialized == true) {
+        Recaptcha.create(recaptcha_apikey, "recaptcha", { theme: "white" });
+      }
+      $('#join_user_email_address').focus();
+   });
+
+   $('.gu_modal').click(function(event){
+
+      if(trigger.attr('action').substr(0,8) == '/email/?') {
+         var loading_image = $('<img src="/images/modal-ajax-loader.gif" class="loading_image">');
+         var input_element = trigger.find('input[name="users[user_email_address]"]');
+         var flash_element = $('<p class="flash">').insertBefore(trigger.find('label'));
+         var legend_element = trigger.find('legend');
+
+         var csrf = trigger.find('input[name=cc_csrf_token]').val();
+
+         trigger.submit(function(event){
+            event.preventDefault();
+
+            flash_element.hide();
+            trigger.find('.btn').hide();
+            input_element.attr('disabled','disabled');
+            loading_image.hide().appendTo(trigger).fadeIn('slow');
+
+            $.post(trigger.attr('action'), { cc_csrf_token: csrf, ajax: 'true', users: { user_email_address: input_element.val() } }, function(data) {
+               loading_image.hide();
+               if(data == 'OK')
+               {
+                  var msg;
+                  if(trigger.attr('id') == 'freepdf_form')
+                  {
+                     msg = 'Check your email inbox to find out how to get that essential PDF.<br />(If you haven&rsquo;t received the email within a few minutes, check your spam folder. If it&rsquo;s there, <a href="http://www.coffeecup.com/help/articles/969/">add us to your whitelist</a> to avoid this in the future.)';
+                  }
+                  else
+                  {
+                     msg = 'Now check your email inbox to find out how to get that one-of-a-kind HTML Editor at a sweet discount. (If you haven&rsquo;t received the email within a few minutes, <a href="http://www.coffeecup.com/help/articles/how-to-add-coffeecup-to-your-email-whitelist/">add us to your whitelist</a> and check your spam folder.)';
+                  }
+
+                  legend_element.text('Almost Done!').siblings().hide();
+                  $('<p><a class="btn">Close</a></p>').click(function(){
+                     $.modal.close()
+                  }).insertAfter(flash_element);
+                  $('<p>' + msg + '</p>').insertAfter(legend_element);
+               }
+               else
+               {
+                  input_element.attr('disabled','');
+                  flash_element.text(data).show();
+                  trigger.find('.btn').fadeIn();
+               }
+            });
+         });
+      }
+   });
+
+    // Makes external anchor tags open links in new windows
+    $('a:not(.colorbox):not(.colorbox_iframe):not(.colorbox_flash):not(.stay):not(.data-modal)[href^="http://"]')
+      .not('[href*="' + document.domain + '"]').not('[href*="recaptcha.net"]').addClass('external');
+
+    $('a.external, .postcontents a').click(function() { window.open(this.href); return false; });
+
+    // Login links open in new windows
+    $('a.login').click(function(){ window.open(this.href); return false; });
+
+    // Logout link should submit logout form so that logout uses POST and isn't open to CSRF
+    $('a.logout_link').click(function(){ $('#logout_form').submit(); return false; });
+
+    // Allow for toggling billing address on and off
+    if($('input#toggle_billing').attr('checked')){$('fieldset#shipping_address_info').hide()}
+    $('input#toggle_billing').click(function(){$('fieldset#shipping_address_info').slideToggle('fast')});
+
+    // Setup the list sorters
+    if($.fn.ccListSorter){$('div.sortable,ul.sortable').ccListSorter();}
+    // Setup the syncers
+    if($.fn.ccSync){$('input#sync').ccSync();}
+    // Setup the long uploads
+    if($.fn.ccLongUpload){$('input.long_upload').ccLongUpload();}
+    // Setup the waiting processor
+     if($.fn.ccLongProcess){$('input.long_process').ccLongProcess();}
+    // Setup slug builder
+    if($.fn.ccSlugBuilder){$('form.slug_builder').ccSlugBuilder();}
+    // Setup tag selector
+    if($.fn.ccTagSelector){$('form.tag_selector').ccTagSelector();}
+    // Setup star rater
+    if($.fn.rating){$('input[type=radio].star').rating();}
+    // Setup formsaver
+    if($.fn.ccFormSaver){$('form.formsaver').ccFormSaver();}
+    // Setup Slider
+    if($.fn.ccSlider){$('#bundle_scroller').ccSlider();}
+
+    $('#bundle_scroller .bundle').addClass('active').click(function() {
+       location.href = $(this).find('p a').attr('href');
+    });
+
+    $('#header_search #search_button').val('');
+    $('#quickcheckout #sign_in_button').val('');
+    $('#search_field').focus(function(){
+       if($(this).val() == 'Search…') {
+          $(this).val('');
+       }
+    }).blur(function(){
+       if($(this).val() == '') {
+          $(this).val('Search…');
+       }
+    });
+
+    if($('#hide_smilies :checkbox:checked').length){$('.smiley').hide()}
+    $('#hide_smilies :checkbox').click(function(){
+       $('.smiley').toggle();
+    });
+
+    //fancy trial download email box
+    if($('input#trial_download_email'))
+    {
+       $('input#trial_download_email').focus(function(){if($('input#trial_download_email').val() == 'you@domain.com') $('input#trial_download_email').val('');});
+       $('input#trial_download_email').blur(function(){if($('input#trial_download_email').val() == '') $('input#trial_download_email').val('you@domain.com');});
+    }
+
+   if(parent.jQuery.fn.colorbox) {
+      // opens certain links inside the post download colorbox form in the parent window
+      $('a.to_parent').click(function(event){
+         event.preventDefault();
+         parent.location.href = $(this).attr('href');
+      });
+
+      $('a.colorbox_closeme').click(function(event){
+         event.preventDefault();
+         parent.jQuery.fn.colorbox.close();
+      });
+   }
+
+
+   // closes form message and form error boxes
+   $(".form_message #dismiss_message").click(function(event){
+      event.preventDefault();
+      $('.form_message').fadeOut();
+   });
+   $(".form_error #dismiss_message").click(function(event){
+      event.preventDefault();
+      $('.form_error').fadeOut();
+   });
+
+    // hide disclaimer notes by default
+    $('#disclaimer').hide();
+    $('.form_note a[href="#disclaimer"]').click(function(){
+       $('#disclaimer').toggle();
+       return false;
+    });
+
+    $('#contactUs select').change(function(){
+       $(this).find('option:selected').each(function () {
+          if($(this).val() == '3')
+          {
+             $('#contact_message').hide();
+             $('#button_sendmymessage').hide();
+             $('#user_info').hide();
+             $('#support_details').show('fast');
+          }
+          else
+          {
+             $('#support_details').hide();
+             $('#contact_message').show('normal');
+             $('#user_info').show();
+             $('#button_sendmymessage').show();
+          }
+      }).change()
+    });
+
+    // Open max-width'ed images in colorbox
+    $('div.postcontents img').each(function(){
+
+       if($.browser.msie && parseInt($.browser.version) <= 6 && $(this).width() > 505)
+       {
+          $(this).css('width','505px');
+       }
+
+       if($(this).width() == '505')
+       {
+          $(this).wrap('<a class="expandable_image colorbox" href="' + $(this).attr('src') + '"></a>');
+       }
+    });
+
+    // hides the text 'add to cart' on software product home pages
+    if($('.primary #addbutton')) {
+       $('ul.primary #addbutton').attr("value","");
+    }
+
+    $('#product_price').css({'cursor':'pointer'}).click(function(){
+       $('#add_to_cart').click();
+    });
+
+    // for toggling FAQ's on /contact/
+    $('#faqnotice').append("<br /><br /><b id=\"faqtoggle\">Save some time &mdash; Check out the FAQ</b>");
+    $('#contactfaqs').hide();
+    $('#contactfaqs p').hide();
+    $('#faqtoggle').click(function() {
+       $('#contactfaqs').slideToggle('slow');
+    });
+    $('#contactfaqs b').click(function() {
+       $(this).parent().find('p').toggle();
+       $(this).css({color:"#333", textDecoration:"none"})
+    });
+
+    $('.ccui_message .close').click(function(event){
+       event.preventDefault();
+       $(this).parents('.ccui_message').fadeOut('slow');
+    });
+
+    $('#first_name,#last_name').defaultText({message:'(as appears on your card)'});
+    $('#address_info .column1 input, #address_info .column2 input,' +
+      '#address_info .column1 select, #address_info .column2 select').focus(function(){
+       $('#default_address_new').click();
+    });
+
+   // Setup the global checkbox
+   if($('#global_check').length)
+   {
+      $('#global_check').change(function(){
+         var global_checked = this.checked;
+         $('td.check input[type=checkbox]').each(function(){
+            this.checked = global_checked;
+            $(this).change();
+         });
+      });
+
+      $('td.check input[type=checkbox]').change(function(){
+         if(!this.checked)
+         {
+            $('#global_check').attr('checked','');
+         }
+      });
+   }
+
+    $('#payment_methods tr').click(function(){
+       $(this).find('.payment_option input').click();
+    });
+
+    /* S-Drive URL Thingy */
+    if($("#sdrive-slug").length)
+    {
+      jQuery.ccGetSdriveSlug = function(slug) {
+         return slug ? slug.toLowerCase().replace(/\s/g,'-').replace(/[^a-z0-9-]/g,'').replace(/^-+|-+$/g, '') : '';
+      }
+
+      $("#sdrive-slug").defaultText({message:'yournamehere'}).bind('keyup change blur update', function(e){
+         $("em.user_slug").text($.ccGetSdriveSlug($(this).val()) || 'yournamehere');
+      }).change().parents('form').submit(function(event){
+         var user_slug_text = $("em.user_slug:first").text();
+         if (user_slug_text == 'yournamehere') {
+            user_slug_text = '';
+         }
+
+         $("#sdrive-slug").val(user_slug_text);
+         $(this).unbind(event);
+      });
+    }
+
+    // Hides people in online lists
+    if($('#online_list a').length > 10) {
+       $('#online_list a:gt(10), #online_list br:gt(10)').hide();
+       $('<a href="">View All...</a>').appendTo($('#online_list')).click(function(event){
+          event.preventDefault();
+          $('#online_list a:gt(10), #online_list br:gt(10)').show();
+          $(this).hide();
+       });
+    }
+
+   // scrolls to an anchor by id on the page
+   $('a[id^="goto-"]').click(function(event){
+     event.preventDefault();
+     var id = $(this).attr("id").substring(5);
+     $('html,body').animate({scrollTop: $("#"+id).offset().top},'slow');
+   });
+
+   //Play the form builder video
+  if ($('.video-player').length > 0) {
+    $(".play-button").click(function(){
+      if ($("#video-modal").length === 0) {
+        var video_modal_box = $("<div class='modal-box large' id='video-modal'><div class='fb-video'></div></div>");
+        $('body').append(video_modal_box);
+      }
+      var video = $('#current-video')
+        , link = $(this).data('videolink');
+
+      if(video.length === 0) {
+        $('.fb-video').append($('<iframe id="current-video" frameborder="0" src="' + link + '?api=1&autoplay=1" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'));
+      } else {
+        $("#current-video").attr('src', link + "?api=1&autoplay=1");
+        video[0].contentWindow.postMessage(JSON.stringify({method: 'play'}), link);
+      }
+    });
+  }
+
+  $(".video-player-link").click(function(e) {
+    if ($("#video-modal").length === 0) {
+      var video_modal_box = $("<div class='modal-box large' id='video-modal'><div class='fb-video'></div></div>");
+      $('body').append(video_modal_box);
+    }
+    e.preventDefault();
+    var video = $('#current-video')
+        , link = $(this).data('videolink');
+
+    if(video.length === 0) {
+      $('.fb-video').append($('<iframe id="current-video" frameborder="0" src="' + link + '?api=1&autoplay=1" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'));
+    } else {
+      video[0].contentWindow.postMessage(JSON.stringify({method: 'play'}), link);
+    }
+  });
+
+  // Image Loader
+  var screenPixelRatio = function() {
+        var retVal = 1;
+        if (window.devicePixelRation) {
+          retVal = window.devicePixelRatio;
+        } else if ("matchMedia" in window && window.matchMedia) {
+          if (window.matchMedia("(min-resolution: 2dppx)").matches || window.matchMedia("(min-resolution:192dpi)").matches) {
+            retVal = 2;
+          } else if (window.matchMedia("(min-resolution: 1.5dppx)").matches || window.matchMedia("(min-resolution:144dpi)").matches) {
+            retVal = 1.5;
+          }
+        }
+
+        return retVal;
+      }
+    , getImageVersion = function() {
+        var pixelRatio = screenPixelRatio();
+        var width = window.innerWidth * pixelRatio;
+
+        if (width > 320 && width <= 640) {
+          return "medium";
+        } else if (width > 640 && pixelRatio > 1) {
+          return "high";
+        } else if (width > 640) {
+          return "x-high";
+        } else {
+          return "small";
+        }
+      }
+    , lazyloadImage = function(imageContainer) {
+        var imageVersion = getImageVersion();
+
+        if (!imageContainer || !imageContainer.children) {
+          return;
+        }
+
+        var img = imageContainer.children[0];
+
+        if (img) {
+          var imgSRC = img.getAttribute("data-src-" + imageVersion);
+          var altTxt = img.getAttribute("alt", altTxt ? altTxt : "");
+          imageContainer.appendChild(imageElement);
+          imageContainer.removeChild(imageContainer.children[0]);
+        };
+      }
+    , lazyLoadedImages = document.getElementsByClassName("lazy-load");
+
+  for (var i = 0; i < lazyLoadedImages.length; i++) {
+    lazyloadImages(lazyLoadedImages[i]);
+  };
+});

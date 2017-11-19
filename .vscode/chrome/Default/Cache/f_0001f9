@@ -1,0 +1,2614 @@
+function getCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return "";
+}
+
+function deletecookie(name, domain, path) {
+	if (pageUrl.indexOf(deployedServer)!=-1){
+		var domain = domain || document.domain;
+		var path = path || "/";
+		document.cookie = name + "=; expires=" + +new Date + "; domain=" + domain + "; path=" + path;
+		location.reload(true);
+	}
+}
+
+
+function deletecookieredirect(name, domain, path,redirectURL) {
+	if (pageUrl.indexOf(deployedServer)!=-1){
+		var domain = domain || document.domain;
+		var path = path || "/";
+		document.cookie = name + "=; expires=" + +new Date + "; domain=" + domain + "; path=" + path;
+		window.top.location.href = redirectURL;
+	}
+}
+
+
+function deletemyacinfocookie() {
+	deletecookie(myacinfoCookie, myacinfoDomain, myacinfoDomain);
+}
+
+function toggleElementOnclick(elementId){
+	if(document.getElementById(elementId).className=='show'){
+		document.getElementById(elementId).className='hide';
+	}else{
+		document.getElementById(elementId).className='show';
+	}	
+}
+
+/*************   Service Broker *****************/
+
+
+function cookieDecryptCCL(iframe,LocaleCode,iframeType){
+	var ccl_Cookie=getCookie(cclCookie);
+	if(ccl_Cookie==null || ccl_Cookie=="" ){
+		return false;
+	}else{
+		return cookieDecryptCCLChild(iframe,LocaleCode,iframeType);
+	}
+}
+
+
+
+function appleIdCookieValueFetch(){
+	var myacinfo_Cookie=getCookie(myacinfoCookie);
+	if(myacinfo_Cookie==null || myacinfo_Cookie=="" ){
+		return false;
+	}else{
+		return appleIdCookieValueFetchChild();
+	}
+
+
+}
+
+/***************  Serial Number Validator *************/
+
+
+function serialNumberValidation(serialNo,prdCode,softwareVersion){
+	return serialNumberValidationChild(serialNo,prdCode,softwareVersion);
+}
+/***************  Serial Number Validator *************/
+/************************  DATA CAPTURE WS  ****************************/
+function bulidData(){
+try{
+jsonObj=[];
+var inputElementIds = document.getElementById('form').getElementsByTagName('input');
+for (var i = 0; i < inputElementIds.length; i++) {
+var item = {};
+var validationFormat="";
+var classSplit=inputElementIds[i].className.split("@");
+try{
+validationFormat=classSplit[1];
+}catch(e){
+validationFormat="";
+}
+ 
+if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+if(inputElementIds[i].name !== null && typeof(inputElementIds[i].name) !== 'undefined' && inputElementIds[i].name !=""){
+item["Type"]="INPUTTEXT";
+item["Name"]=inputElementIds[i].name;
+item["Value"]=replaceSpecialCharacter(document.getElementById(inputElementIds[i].id).value);
+item["Checked"]=document.getElementById(inputElementIds[i].id).checked;
+item["ValidationFormat"]=validationFormat;
+}
+}
+else if(inputElementIds[i].type=="checkbox"){
+if(inputElementIds[i].name !== null && typeof(inputElementIds[i].name) !== 'undefined' && inputElementIds[i].name !=""){
+item["Type"]="CHECKBOX";
+item["Name"]=inputElementIds[i].name;
+item["Value"]=document.getElementById(inputElementIds[i].id).value;
+item["Checked"]=document.getElementById(inputElementIds[i].id).checked;
+item["ValidationFormat"]=validationFormat;
+}
+}
+else if(inputElementIds[i].type=="radio"){
+if(inputElementIds[i].name !== null && typeof(inputElementIds[i].name) !== 'undefined' && inputElementIds[i].name !=""){
+item["Type"]="RADIO";
+item["Name"]=inputElementIds[i].name;
+item["Value"]=document.getElementById(inputElementIds[i].id).value;
+item["Checked"]=document.getElementById(inputElementIds[i].id).checked;
+item["ValidationFormat"]=validationFormat;
+}
+}
+else if(inputElementIds[i].type=="hidden"){
+if(inputElementIds[i].name !== null && typeof(inputElementIds[i].name) !== 'undefined' && inputElementIds[i].name !="" ){
+item["Type"]="HIDDEN";
+item["Name"]=inputElementIds[i].name;
+item["Value"]=document.getElementById(inputElementIds[i].id).value;
+item["Checked"]=document.getElementById(inputElementIds[i].id).checked;
+item["ValidationFormat"]=validationFormat;
+}
+}
+else if(document.getElementById('SYSTEM:INITIALISE:DSPERSIST')!=null){
+if(inputElementIds[i].name !== null && typeof(inputElementIds[i].name) !== 'undefined' && inputElementIds[i].name !=""){
+item["Type"]="HIDDEN";
+item["Name"]="SYSTEM:INITIALISE:DSPERSIST";
+item["Value"]=document.getElementById('SYSTEM:INITIALISE:DSPERSIST').value;
+item["Checked"]=document.getElementById('SYSTEM:INITIALISE:DSPERSIST').checked;
+item["ValidationFormat"]="";
+}
+}
+
+else if(document.getElementById('SYSTEM:INITIALISE:IP')!=null){
+if(inputElementIds[i].name !== null && typeof(inputElementIds[i].name) !== 'undefined' && inputElementIds[i].name !=""){
+
+item["Type"]="HIDDEN";
+item["Name"]="SYSTEM:INITIALISE:IP";
+item["Value"]=document.getElementById('SYSTEM:INITIALISE:IP').value;
+item["Checked"]=document.getElementById('SYSTEM:INITIALISE:IP').value;
+item["ValidationFormat"]="";
+}
+}
+if(item["Name"] !=null && typeof(item["Name"]) !== 'undefined' && item["Name"] != ""){
+//console.log(item);
+jsonObj.push(item);
+}
+}
+var inputElementIds = document.getElementById('form').getElementsByTagName('select');
+for (var i = 0; i < inputElementIds.length; i++) {
+var item = {};
+var elementid=inputElementIds[i].id;
+item["Type"]="SELECT";
+item["Name"]=inputElementIds[i].name;
+item["Value"]=document.getElementById(elementid)[document.getElementById(elementid).selectedIndex].value;
+item["Checked"]=document.getElementById(inputElementIds[i].id).checked;
+item["ValidationFormat"]=validationFormat;
+if(item["Name"] != ""){
+//console.log(item["Name"]);
+jsonObj.push(item);
+}
+}
+var inputElementIds = document.getElementById('form').getElementsByTagName('textarea');
+for (var i = 0; i < inputElementIds.length; i++) {
+item = {};
+var elementid=inputElementIds[i].id;
+item["Type"]="TEXTAREA";
+item["Name"]=inputElementIds[i].name;
+item["Value"]=replaceSpecialCharacter(document.getElementById(inputElementIds[i].id).value);
+item["Checked"]=document.getElementById(inputElementIds[i].id).checked;
+item["ValidationFormat"]=validationFormat;
+if(item["Name"] != ""){
+//console.log(item["Name"]);
+jsonObj.push(item);
+}
+}
+var jsonObject="[";
+for(var jsonObjCount=0;jsonObjCount<jsonObj.length;jsonObjCount++){
+jsonObject=jsonObject+"{\"Type\":\""+jsonObj[jsonObjCount]["Type"]+"\",\"Name\":\""+jsonObj[jsonObjCount]["Name"]+"\",\"Value\":\""+jsonObj[jsonObjCount]["Value"]+"\",\"Checked\":\""+jsonObj[jsonObjCount]["Checked"]+"\",\"ValidationFormat\":\""+jsonObj[jsonObjCount]["ValidationFormat"]
+if(jsonObjCount !=jsonObj.length -1){
+jsonObject=jsonObject+"\"},";
+}
+else{
+jsonObject=jsonObject+"\"}";
+}                
+}
+jsonObject=jsonObject+"]";
+return jsonObject;
+}
+catch(e){
+console.log("Exception"+e);
+}
+}
+/***************  Start of changes for CR 13716523 SWDL:Bug fix:Email ID field does not accept '+' sign **************/
+
+function replaceSpecialCharacter(str){
+str=str.replace(/&/g, "%26");
+str=str.replace(/\+/g, "%2B");
+return str;
+}
+
+
+function dataCapture(requestString){
+//	return window.frames["serviceBrokerHtml"].dataCaptureChild(requestString,operationType);
+	return dataCaptureChild(requestString);
+
+}
+/***************  End of changes for CR 13716523 SWDL:Bug fix:Email ID field does not accept '+' sign **************/
+
+/**************************  DATA CAPTURE WS  ****************************/
+/************************************/
+function emailValidationChild(emailId){
+//	alert("aaaa");
+	var success = true;
+	$.ajax({
+	headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+		dataType: 'json',
+		type: "POST",
+		url: wsBrokerURLemail,
+		data: replaceSpecialCharacter(emailId),
+		async:false,
+		success: function(msg){
+			success=msg;
+		}
+	});
+
+	if(success){
+		return true;
+	}else{
+		return false;
+	}
+
+
+}
+
+function cookieDecryptCCLChild(iframe,LocaleCode,iframeType){
+	var success = false;
+	$.ajax({
+		dataType: 'json',
+		type: "POST",
+		url: wsBrokerURL,
+		data: "wsCode=CCL&iframe="+iframe+"&localeCode="+LocaleCode+"&iframeType="+iframeType+"&DATE="+new Date(),
+//		async:false,
+		success: function(msg){
+			// parent.RichFaces.$('form:pp').hide(); 
+			initialiseContryInfo(msg.CNTRYCODE3ALIST,msg.CNTRYINFOHIDDEN,msg.DEFAULTCNTRY,msg.CNTRYTEXTDISPLAYEDLIST,msg.SHOWCNTRYINFO);
+			//alert(msg.CNTRYCODE3ALIST,msg.CNTRYINFOHIDDEN,msg.DEFAULTCNTRY,msg.CNTRYTEXTDISPLAYEDLIST)
+		}
+	});
+	if(success){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+
+function appleIdCookieValueFetchChild(){
+	var success = false;
+	$.ajax({
+		dataType: 'json',
+		type: "POST",
+		url: wsBrokerURL,
+		data: "wsCode=APPLEIDCOOKIE&DATE="+new Date(),
+//		async:false,
+		success: function(msg){
+			if(msg.WSSTATUS){
+				if(msg.status==0){
+					validAppleIdCookie(msg);
+				}else{
+					invalidAppleIdCookie();
+				}
+			}else{
+				//		alert("HERE====>")
+				invalidAppleIdCookie();
+			}
+
+		}
+
+	});
+
+}
+
+function serialNumberValidationChild(serialNo,prdCode,softwareVersion){
+	var success = false;
+	$.ajax({
+		dataType: 'json',
+		type: "POST",
+		url: wsBrokerURL,
+		data: "wsCode=SNVS&serialNo="+serialNo+"&prdCode="+prdCode+"&softwareVersion="+softwareVersion+"&DATE="+new Date(),
+		async:false,
+		success: function(msg){
+			// parent.RichFaces.$('form:pp').hide(); 
+			success=msg.WSSTATUS;
+		}
+	});
+	if(success){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function dataCaptureChild(requestString){
+	var success = false;
+//	console.log(requestString);
+	$.ajax({
+		headers: { 
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+        },
+		dataType: 'json',
+		type: "POST",
+		url: wsBrokerURLdownload,
+		data:requestString,
+//		async:false,
+
+		success: function(msg){
+			// parent.RichFaces.$('form:pp').hide(); 
+			success=msg;
+		}
+	});
+
+	if(success){
+		return true;
+	}else{
+		return false;
+	}
+
+
+}
+
+/************************************/
+
+/************ EMAIL VALIDATION ******************/
+
+
+function emailValidation(emailId){
+	var atpos=emailId.indexOf("@");
+	var dotpos=emailId.lastIndexOf(".");
+	if (atpos<1 || dotpos<atpos+2 || dotpos+2>=emailId.length){
+		return false;
+	}else{
+		return emailValidationChild(emailId);
+	}
+}
+
+/*************   Service Broker *****************/
+/*************   Service Broker *****************/
+/*************   Service Broker *****************/
+
+/*************   Validation *****************/
+
+
+function jsSerialNumberValidation(elementId){
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value!=""){
+			if(serialNumberValidation(document.getElementById(elementId).value,document.getElementById("SNVS:"+elementId+":hidden:productCode").value,document.getElementById("SNVS:"+elementId+":hidden:softwareVersion").value)){
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+				}catch(e){}
+				document.getElementById("label_"+elementId).className="show";
+				document.getElementById("label_error"+elementId).className="hide";
+			}else{
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+				}catch(e){}
+				document.getElementById("label_"+elementId).className="hide";
+				document.getElementById("label_error"+elementId).className="show";
+				return false;
+			}
+
+		}
+	}
+	return true;
+}
+
+
+function jsEmailValidation(elementId){
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value!=""){
+			try{
+				if(document.getElementById("WSINPUT:PersonInformation:conemail")!=null){
+					if(document.getElementById("WSINPUT:PersonInformation:conemail").value!=""){
+						if(document.getElementById("WSINPUT:PersonInformation:conemail").value!=document.getElementById(elementId).value){
+							try{
+								$(document.getElementById("WSINPUT:PersonInformation:conemail")).attr( "aria-labelledby", "label_errorWSINPUT:PersonInformation:conemail" );
+							}catch(e){}
+							document.getElementById("label_WSINPUT:PersonInformation:conemail").className="hide";
+							document.getElementById("label_errorWSINPUT:PersonInformation:conemail").className="show";
+							return false;
+						}else{
+							try{
+								$(document.getElementById("WSINPUT:PersonInformation:conemail")).attr( "aria-labelledby", "label_WSINPUT:PersonInformation:conemail" );
+							}catch(e){}
+							document.getElementById("label_WSINPUT:PersonInformation:conemail").className="show";
+							document.getElementById("label_errorWSINPUT:PersonInformation:conemail").className="hide";
+						}
+					}
+				}
+			}catch(e){}
+
+			if(emailValidation(document.getElementById(elementId).value)){
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+				}catch(e){}
+				document.getElementById("label_"+elementId).className="show";
+				document.getElementById("label_error"+elementId).className="hide";
+			}else{
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+				}catch(e){}
+				document.getElementById("label_"+elementId).className="hide";
+				document.getElementById("label_error"+elementId).className="show";
+				return false;
+			}
+
+		}
+	}
+	return true;
+}
+
+
+
+function requiredValidation(elementId){
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value==""){
+			try{
+				$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+			}catch(e){}
+			document.getElementById("label_"+elementId).className="hide";
+			document.getElementById("label_error"+elementId).className="show";
+			return false;
+		}else{
+			try{
+				$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+			}catch(e){}
+
+			document.getElementById("label_"+elementId).className="show";
+			document.getElementById("label_error"+elementId).className="hide";
+		}
+	}
+	return true;
+}
+
+
+/*************** Added for QA for iframe Feedbackform - 30th May 2012*********************/
+function resetLabelForElement(elementId){
+	if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+		try{
+			$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+		}catch(e){}
+
+		document.getElementById("label_"+elementId).className="show";
+		document.getElementById("label_error"+elementId).className="hide";
+	}
+}
+/*************** Added for QA for iframe Feedbackform - 30th May 2012*********************/
+
+function validate(){
+	var validd=true;
+	var masterValidation=true;
+	var inputElementIds = document.getElementById('form').getElementsByTagName('input');
+	for (var i = 0; i < inputElementIds.length; i++) {
+		var classSplit=inputElementIds[i].className.split("@");
+		var validationType=classSplit[0];
+		var validationFormat=classSplit[1];
+		/*************** Added for QA for iframe Feedbackform - 30th May 2012*********************/
+		try{
+			resetLabelForElement(inputElementIds[i].id);
+		}catch(e){
+
+		}
+		if(validationType.indexOf("required")>=0){
+			if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+				validd = requiredValidation(inputElementIds[i].id);
+				if(masterValidation && !validd){
+					masterValidation=false;
+				}
+			}
+		}
+		if(validationType.indexOf("email")>=0){
+			if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+				validd = jsEmailValidation(inputElementIds[i].id);
+				if(masterValidation && !validd){
+					masterValidation=false;
+				}
+			}
+		}
+		if(validationType.indexOf("serialNumber")>=0){
+			if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+				validd = jsSerialNumberValidation(inputElementIds[i].id);
+				if(masterValidation && !validd){
+					masterValidation=false;
+				}
+			}
+		}
+
+		if(validationType.indexOf("date")>=0){
+			if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+				validd = jsDateValidation(inputElementIds[i].id,validationFormat);
+				if(masterValidation && !validd){
+					masterValidation=false;
+				}
+			}
+		}
+
+		if(validationType.indexOf("phoneNoValidation")>=0){
+			if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+				validd = jsPhoneValidation(inputElementIds[i].id,validationFormat);
+				if(masterValidation && !validd){
+					masterValidation=false;
+				}
+			}
+		}
+
+		if(validationType.indexOf("zipCode")>=0){
+			if(inputElementIds[i].type=="text" || inputElementIds[i].type=="password"){
+				validd = jsZipCodeValidation(inputElementIds[i].id,validationFormat);
+				if(masterValidation && !validd){
+					masterValidation=false;
+				}
+			}
+		}
+	}
+
+
+	var inputElementIds = document.getElementById('form').getElementsByTagName('div');
+	for (var i = 0; i < inputElementIds.length; i++) {
+		var classSplit=inputElementIds[i].className.split("@");
+		var validationType=classSplit[0];
+		var validationFormat=classSplit[1];
+		/*************** Added for QA for iframe Feedbackform - 30th May 2012*********************/
+		try{
+			resetLabelForElement(inputElementIds[i].id);
+		}catch(e){
+
+		}
+		if(validationType.indexOf("required")>=0){
+			validd = requiredValidationForMatrix(inputElementIds[i].id);
+			validationCssChange(validd,inputElementIds[i].id);
+			if(masterValidation && !validd){
+				masterValidation=false;
+			}
+		}
+
+
+	}
+
+
+
+	var inputElementIds = document.getElementById('form').getElementsByTagName('select');
+	for (var i = 0; i < inputElementIds.length; i++) {
+		var classSplit=inputElementIds[i].className.split("@");
+		var validationType=classSplit[0];
+		var validationFormat=classSplit[1];
+		/*************** Added for QA for iframe Feedbackform - 30th May 2012*********************/
+		try{
+			resetLabelForElement(inputElementIds[i].id);
+		}catch(e){
+
+		}		
+		if(validationType.indexOf("required")>=0){
+			validd = requiredValidationForSelect(inputElementIds[i].id);
+			if(masterValidation && !validd){
+				masterValidation=false;
+			}
+
+		}
+
+
+	}
+
+	var inputElementIds = document.getElementById('form').getElementsByTagName('textarea');
+	for (var i = 0; i < inputElementIds.length; i++) {
+		var classSplit=inputElementIds[i].className.split("@");
+		var validationType=classSplit[0];
+		var validationFormat=classSplit[1];
+		/*************** Added for QA for iframe Feedbackform - 30th May 2012*********************/
+		try{
+			resetLabelForElement(inputElementIds[i].id);
+		}catch(e){
+
+		}
+		if(validationType.indexOf("required")>=0){
+			validd = requiredValidation(inputElementIds[i].id);
+			if(masterValidation && !validd){
+				masterValidation=false;
+			}
+		}
+	}
+	return masterValidation;
+}
+
+
+function requiredValidationForSelect(elementId){
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value==""){
+			try{
+				$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+			}catch(e){}
+
+			document.getElementById("label_"+elementId).className="hide";
+			document.getElementById("label_error"+elementId).className="show";
+			return false;
+		}else{
+			if(document.getElementById(elementId+":"+document.getElementById(elementId).value+":TextBox")!=null){
+				if(document.getElementById(elementId+":"+document.getElementById(elementId).value+":TextBox").value==""){
+
+					try{
+						$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+					}catch(e){}
+					document.getElementById("label_"+elementId).className="hide";
+					document.getElementById("label_error"+elementId).className="show";
+					return false;
+				}
+			}
+		}
+		try{
+			$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+		}catch(e){}
+
+		document.getElementById("label_"+elementId).className="show";
+		document.getElementById("label_error"+elementId).className="hide";
+	}
+	return true;
+}
+
+
+
+function toggleElementOnSelectionChange(elementId){
+	var selectedValue=document.getElementById(elementId).value;
+	for(var counter=0;counter<document.getElementById(elementId).options.length;counter++){
+		if(document.getElementById(elementId).options[counter].value==document.getElementById(elementId).value){
+			if(document.getElementById(elementId+":"+document.getElementById(elementId).options[counter].value+":TextBox")!=null){
+				document.getElementById(elementId+":"+document.getElementById(elementId).options[counter].value+":TextBox").className="show";
+			}
+		}else{
+			if(document.getElementById(elementId+":"+document.getElementById(elementId).options[counter].value+":TextBox")!=null){
+				document.getElementById(elementId+":"+document.getElementById(elementId).options[counter].value+":TextBox").className="hide";
+			}
+		}
+	}
+}
+
+
+
+//elmentGroupName
+function toggleElementOnclickRadio(elmentGroupName){
+	var matrixElement=document.getElementsByName(elmentGroupName);
+	if(matrixElement.length==1){
+		if(document.getElementsByName(elmentGroupName).checked){
+			if(document.getElementById(document.getElementsByName(elmentGroupName).id+":TextBox")!=null){
+				document.getElementById(document.getElementsByName(elmentGroupName).id+":TextBox").className="show";
+			}
+		}else{
+			if(document.getElementById(document.getElementsByName(elmentGroupName).id+":TextBox")!=null){
+				document.getElementById(document.getElementsByName(elmentGroupName).id+":TextBox").className="hide";
+			}
+		}
+	}else{
+		for(var counter=0;counter<matrixElement.length;counter++){
+			if(document.getElementsByName(elmentGroupName)[counter].checked){
+				if(document.getElementById(document.getElementsByName(elmentGroupName)[counter].id+":TextBox")!=null){
+					document.getElementById(document.getElementsByName(elmentGroupName)[counter].id+":TextBox").className="show";
+				}
+			}else{
+				if(document.getElementById(document.getElementsByName(elmentGroupName)[counter].id+":TextBox")!=null){
+					document.getElementById(document.getElementsByName(elmentGroupName)[counter].id+":TextBox").className="hide";
+				}
+			}
+		}
+	}
+}
+
+
+function validationCssChange(successBoolean,elementId){
+	if(!successBoolean){
+		try{
+			$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+		}catch(e){}
+
+		document.getElementById("label_"+elementId).className="hide";
+		document.getElementById("label_error"+elementId).className="show";
+	}else{
+		try{
+			$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+		}catch(e){}
+
+		document.getElementById("label_"+elementId).className="show";
+		document.getElementById("label_error"+elementId).className="hide";
+	}
+}
+
+function validationForTextboxRequired(elementName){
+	var matrixElement=document.getElementsByName(elementName);
+	if(matrixElement.length==1){
+		if(document.getElementsByName(elementName).checked){
+
+			if(document.getElementById(document.getElementsByName(elementName).id+":TextBox")!=null){
+				if(document.getElementById(document.getElementsByName(elementName).id+":TextBox").value==""){
+					return false;
+				}
+			}
+		}
+	}else{
+		for(var counter=0;counter<matrixElement.length;counter++){
+			if(document.getElementsByName(elementName)[counter].checked){
+				if(document.getElementById(document.getElementsByName(elementName)[counter].id+":TextBox")!=null){
+					if(document.getElementById(document.getElementsByName(elementName)[counter].id+":TextBox").value==""){
+						return false;	
+					}
+				}
+			}
+		}
+	}
+	return true;
+}
+
+function requiredValidationForMatrix(elementName){
+
+	var matrixElement=document.getElementsByName(elementName);
+	if(matrixElement.length==1){
+		if(document.getElementsByName(elementName).checked){
+			return true;
+		}
+	}else{
+		for(var counter=0;counter<matrixElement.length;counter++){
+			if(document.getElementsByName(elementName)[counter].checked){
+				return validationForTextboxRequired(elementName);
+			}
+		}
+	}
+	return false;
+}
+
+
+
+
+function jsDateValidation(elementId,validationFormat){
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value!=""){
+			if(isDate(document.getElementById(elementId).value,validationFormat)){
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+				}catch(e){}
+
+				document.getElementById("label_"+elementId).className="show";
+				document.getElementById("label_error"+elementId).className="hide";
+			}else{
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+				}catch(e){}
+				document.getElementById("label_"+elementId).className="hide";
+				document.getElementById("label_error"+elementId).className="show";
+				return false;
+			}
+
+		}
+	}
+	return true;
+}
+
+
+function jsPhoneValidation(elementId,validationFormat){
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value!=""){
+			if(phoneValidation(document.getElementById(elementId).value,validationFormat)){
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+				}catch(e){}
+
+				document.getElementById("label_"+elementId).className="show";
+				document.getElementById("label_error"+elementId).className="hide";				
+			}else{
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+				}catch(e){}
+
+				document.getElementById("label_"+elementId).className="hide";
+				document.getElementById("label_error"+elementId).className="show";
+				return false;
+			}
+
+		}
+	}
+	return true;
+}
+
+
+function jsZipCodeValidation(elementId,validationFormat){
+	var localeCode=document.getElementById("WSINPUT:SystemGenerated:localeCode").value;
+
+	if(document.getElementById(elementId)!=null){
+		if(document.getElementById(elementId).value!=""){
+			var zipCodeValue=document.getElementById(elementId).value;
+			if(isNumeric(zipCodeValue)){
+				if(localeCode=="en_us" ){
+					if(zipCodeValue.length==5){
+						try{
+							$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+						}catch(e){}
+
+						document.getElementById("label_"+elementId).className="show";
+						document.getElementById("label_error"+elementId).className="hide";
+					}else{
+						try{
+							$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+						}catch(e){}
+						document.getElementById("label_"+elementId).className="hide";
+						document.getElementById("label_error"+elementId).className="show";
+						return false;
+					}
+
+				}else if(localeCode=="en_ca"){
+					if(zipCodeValue.length==6){
+						try{
+							$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+						}catch(e){}
+						document.getElementById("label_"+elementId).className="show";
+						document.getElementById("label_error"+elementId).className="hide";
+					}else{
+						try{
+							$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+						}catch(e){}
+						document.getElementById("label_"+elementId).className="hide";
+						document.getElementById("label_error"+elementId).className="show";
+						return false;
+					}
+				}else{
+					try{
+						$(document.getElementById(elementId)).attr( "aria-labelledby", "label_"+elementId );
+					}catch(e){}
+					document.getElementById("label_"+elementId).className="show";
+					document.getElementById("label_error"+elementId).className="hide";
+				}
+
+			}else{
+				try{
+					$(document.getElementById(elementId)).attr( "aria-labelledby", "label_error"+elementId );
+				}catch(e){}
+				document.getElementById("label_"+elementId).className="hide";
+				document.getElementById("label_error"+elementId).className="show";
+				return false;
+			}
+
+		}
+	}
+	return true;
+}
+/*************   Validation *****************/
+
+function loadCCL(){
+	try{
+		if(document.getElementById("SYSTEM_GENERARTED_LOADCCLIMAGE_ID")!=null){
+			document.getElementById("SYSTEM_GENERARTED_LOADCCLIMAGE_ID").src="https://www.apple.com/global/elements/blank.gif?DATE="+new Date();
+		}
+	}catch(e){}
+}
+
+function onLoadFuction(){
+	loadCCL();
+	setSessionTimeOut();
+	try{
+		if(document.getElementById("SYSTEM:INITIALISE:PLATFORMDETECTION")!=null){
+			if(document.getElementById("SYSTEM:INITIALISE:PLATFORMDETECTION").value=='true'){
+				applyPlatformspacificCode(plat);
+			}
+		}
+	}catch(e){}
+	onLoadPageRequest();
+
+	document.getElementById("form").style.visibility="visible";
+	document.getElementById("WSINPUT:SystemGenerated:userAgent").value=navigator.userAgent;
+}
+
+
+
+function countryInfoInitialisation()
+{ 
+	if(document.getElementById('showCountryCode')!=null){
+		document.getElementById("showCountryCode").style.display = "none";
+		document.getElementById("showCountryCodeWrapper").style.display = "none";
+		var iframeType="";
+		try{
+			if(document.getElementById("WSINPUT:SystemGenerated:iframeType")==null){
+				iframeType="genifrm";
+			}else{
+				if(document.getElementById("WSINPUT:SystemGenerated:iframeType").value==""){
+					iframeType="genifrm";
+				}else{
+					iframeType=document.getElementById("WSINPUT:SystemGenerated:iframeType").value; 
+				}
+			}
+		}catch(e){
+			iframeType="genifrm";
+		}
+	}
+	else
+	{
+		try{
+			if(document.getElementById("WSINPUT:SystemGenerated:iframeType")==null){
+				iframeType="genifrm";
+			}else{
+				if(document.getElementById("WSINPUT:SystemGenerated:iframeType").value==""){
+					iframeType="genifrm";
+				}else{
+					iframeType=document.getElementById("WSINPUT:SystemGenerated:iframeType").value; 
+				}
+			}
+		}catch(e){
+			iframeType="genifrm";
+		}
+
+	}
+	var cclData="wsCode=CCL&iframe="+document.getElementById("WSINPUT:SystemGenerated:appId").value+"&localeCode="+document.getElementById("WSINPUT:SystemGenerated:localeCode").value+"&iframeType="+iframeType+"&DATE="+new Date();
+	return  cclData;
+
+}
+
+
+
+
+function appleIdCookieInitialisation(){
+	try{
+		if(document.getElementById("SYSTEM:INITIALISE:COOKIEMANDETORY")!=null || document.getElementById("SYSTEM:INITIALISE:COOKIEVALIDATION")!=null || document.getElementById("SYSTEM:INITIALISE:AppleIdCookie")!=null){
+			var appleIdData="wsCode=APPLEIDCOOKIE";
+			return appleIdData;
+		}
+	}catch(e){
+		return "";
+	}
+}
+
+function convertRequestDataToJson(requestData,isAppleIdCookiePresent,isCCLCookiePresent)
+{
+try{
+	item={};
+	splitRequestData=requestData.split("&");
+	var iframe;
+	var localeCode;
+	var iframeType;
+	for (var i=0;i<splitRequestData.length;i++)
+		{
+		splitRequest=splitRequestData[i].split("=");
+		if(splitRequest[0]=="iframe")
+			{
+			iframe=splitRequest[1];
+			}
+		else if(splitRequest[0]=="localeCode")
+		{
+			localeCode=splitRequest[1];
+		}
+		else if(splitRequest[0]=="iframeType")
+		{
+			iframeType=splitRequest[1];
+		}
+		}
+	item["localeCode"]=localeCode;
+	item["iframeType"]=iframeType;
+	item["iframe"]=iframe;
+	item["appleIdCookiePresent"]=isAppleIdCookiePresent;
+	item["cclCookiePresent"]=isCCLCookiePresent;
+	var jsonString=JSON.stringify(item);
+	return jsonString;
+}catch(e){}
+}
+function onLoadPageRequest(){
+	var getAppleIdData=appleIdCookieInitialisation();
+	var getCCLData=countryInfoInitialisation();
+	var requestData="Date="+new Date();
+	var isAppleIdCookiePresent="";
+	var isCCLCookiePresent="";
+	if(getAppleIdData!=""){
+		requestData=requestData+"&"+getAppleIdData
+		isAppleIdCookiePresent="Y";
+	}
+	if(getCCLData!=""){
+		requestData=requestData+"&"+getCCLData
+		isCCLCookiePresent="Y";
+	}
+	//var msg={"WSSTATUS":true,"MESSAGE":"Service Successfully invoked","CCL":{"CNTRYCODE3ALIST":"USA@@en_us","WSSTATUS":true,"MESSAGE":"","LOCALECODE":"en_us","DEFAULTCNTRY":"United States","CNTRYTEXTDISPLAYEDLIST":"United States","COOKIEE":true},"APPLEIDCOOKIE":{"WSSTATUS":true,"MESSAGE":""}};
+//	var msg={"WSSTATUS":true,"MESSAGE":"Service Successfully invoked","CCL":{"COOKIEE":true,"WSSTATUS":true,"MESSAGE":"","COUNTRYDETAIL":[{"CODE2A":"USA","locale":"en_us","defaultLanguage":"English","language":"English","displayName":"United States (English)","CODE3A":"USA"},{"CODE2A":"USA","locale":"fr_us","defaultLanguage":"English","language":"French","displayName":"United States (French)","CODE3A":"USA"}]},"APPLEIDCOOKIE":{"WSSTATUS":true,"MESSAGE":""}};
+//	var msg={"WSSTATUS":"Success","MESSAGE":"ServiceInvockedSuccefully","CCLCOOKIEPRESENT":true,"COUNTRYDETAIL":[{"isDefaultCountry":true,"CODE2A":"IND","locale":"en_in","defaultLanguage":"English","language":"English","displayName":"India","CODE3A":"IND"}]}
+//	var msg={"WSSTATUS":"Success","MESSAGE":"ServiceInvockedSuccefully","CCLCOOKIEPRESENT":true,"COUNTRYDETAIL":[{"isDefaultCountry":true,"CODE2A":"USA","locale":"en_us","defaultLanguage":"English","language":"English","displayName":"United States","CODE3A":"USA"}]}
+
+
+	//var msg={"WSSTATUS":true,"MESSAGE":"Service Successfully invoked","CCL":{"WSSTATUS":"Success","MESSAGE":"ServiceInvockedSuccefully","CCLCOOKIEPRESENT":true,"COUNTRYDETAIL":[{"isDefaultCountry":false,"CODE2A":"CAN","locale":"fr_ca","defaultLanguage":"English","language":"French","displayName":"Canada (French)","CODE3A":"CAN"},{"isDefaultCountry":true,"CODE2A":"CAN","locale":"en_ca","defaultLanguage":"English","language":"English","displayName":"Canada (English)","CODE3A":"CAN"}]},"APPLEIDCOOKIE":{"WSSTATUS":true,"MESSAGE":""}};
+
+
+//	initialiseContryInfo(msg.CCL);
+	var requestDataJson=convertRequestDataToJson(requestData,isAppleIdCookiePresent,isCCLCookiePresent);
+//	console.log(requestDataJson);
+if(requestData!=""){
+		var success = false;
+		$.ajax({
+			headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+        },
+			dataType: 'json',
+			type: "POST",
+			url: wsBrokerURL,
+			data: requestDataJson,
+			success: function(msg){
+				if(msg.WSSTATUS){
+					if(msg.CCL!=null && msg.CCL!=""){
+						// initialiseContryInfo(msg.CCL.CNTRYCODE3ALIST,msg.CCL.CNTRYINFOHIDDEN,msg.CCL.DEFAULTCNTRY,msg.CCL.CNTRYTEXTDISPLAYEDLIST,msg.CCL.SHOWCNTRYINFO);
+						initialiseContryInfo(msg.CCL);    
+					}
+					if (msg.APPLEIDCOOKIE!=null && msg.APPLEIDCOOKIE!=""){
+						if(msg.APPLEIDCOOKIE.WSSTATUS){
+							if(msg.APPLEIDCOOKIE.employeeDetails!=null){
+								if(msg.APPLEIDCOOKIE.employeeDetails.status==0)
+									{
+									validAppleIdCookie(msg.APPLEIDCOOKIE);	
+									}
+								
+							}else{
+								invalidAppleIdCookie();
+							}
+						}else{
+							invalidAppleIdCookie();
+						}
+
+					}
+				}
+
+
+			}
+
+		});
+	}
+
+
+}
+
+/*************   APPLE ID COOKIE *****************/
+
+function getCookie(c_name)
+{
+	var i,x,y,ARRcookies=document.cookie.split(";");
+	for (i=0;i<ARRcookies.length;i++)
+	{
+		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+		x=x.replace(/^\s+|\s+$/g,"");
+		if (x==c_name)
+		{
+			return unescape(y);
+		}
+	}
+}
+
+function setCookie(c_name,value,exdays)
+{
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+	document.cookie=c_name + "=" + c_value;
+}
+
+
+
+function validAppleIdCookie(jsonObject){
+	try{
+		document.getElementById("WSINPUT:SystemGenerated:dsId").value=jsonObject.employeeDetails.prsId;
+		document.getElementById("WSINPUT:SystemGenerated:firstName").value=jsonObject.employeeDetails.firstName;
+		document.getElementById("WSINPUT:SystemGenerated:lastName").value=jsonObject.employeeDetails.lastName;
+	}catch(e){
+		document.getElementById("WSINPUT:SystemGenerated:dsId").value='';
+		document.getElementById("WSINPUT:SystemGenerated:firstName").value='';
+		document.getElementById("WSINPUT:SystemGenerated:lastName").value='';
+	}
+	try{
+		if(document.getElementById("WEBSERVICESINPUT:PersonInformation:email")!=null){
+			document.getElementById("WEBSERVICESINPUT:PersonInformation:email").value=jsonObject.employeeDetails.emailAddress;
+		}
+	}catch(e){
+		if(document.getElementById("WEBSERVICESINPUT:PersonInformation:email")!=null){
+			document.getElementById("WEBSERVICESINPUT:PersonInformation:email").value='';
+		}
+	}
+	if(document.getElementById("SYSTEM:INITIALISE:COOKIEVALIDATION")!=null){
+		hideElementOnCookieValidation();
+	}
+	if(document.getElementById("SYSTEM:INITIALISE:AppleIdCookie")!=null){
+		appleIdCookiePopulate(jsonObject);
+	}
+}
+
+function hideElementOnCookieValidation(){
+	var inputElementIds = document.getElementById('form').getElementsByTagName('div');
+	for (var i = 0; i < inputElementIds.length; i++) {
+		var idSplit=inputElementIds[i].id;
+		if(idSplit.indexOf("COOKIEDIV_")>-1){
+			document.getElementById(idSplit).style.display="none";
+		}
+	}
+	try{
+		if(document.getElementById('showCountryCode')!=null){
+			document.getElementById("showCountryCode").style.display = "none";
+			document.getElementById("showCountryCodeWrapper").style.display = "none";
+		}
+	}catch(e){
+
+	}
+}
+
+
+function invalidAppleIdCookie(){
+	if(document.getElementById("SYSTEM:INITIALISE:COOKIEMANDETORY")!=null){
+		cookieAuthenticationLogin();
+	}
+	if(document.getElementById("SYSTEM:INITIALISE:AppleIdCookie")!=null){
+		document.getElementById("SYSTEM:INITIALISE:AppleIdCookie").style.display="none";
+	}
+}
+
+
+
+function cookieAuthenticationLogin() {
+	try{
+		window.location = cookieAuthentication+'&path='+pageUrl.split(deployedServer)[1];
+	}catch(e){
+		window.location = cookieAuthentication+'&path='+pageUrl.split(deployedServer)[0];	
+	}
+
+} 
+
+/*
+function appleIdCookieInitialisation(){
+	try{
+		if(document.getElementById("SYSTEM:INITIALISE:COOKIEMANDETORY")!=null || document.getElementById("SYSTEM:INITIALISE:COOKIEVALIDATION")!=null || document.getElementById("SYSTEM:INITIALISE:AppleIdCookie")!=null){
+			appleIdCookieValueFetch();
+		}
+	}catch(e){
+	}
+}
+ */
+
+
+
+
+function appleIdCookiePopulate(jsonObject){
+	//var inputElementIds = document.getElementById('form').getElementsByTagName('input');
+	try{
+
+
+		if(document.getElementById("SYSTEM:INITIALISE:AppleIdCookie")!=null){
+			if(document.getElementById("SYSTEM:INITIALISE:AppleIdCookie").innerHTML!=""){
+
+				var cookieStr=document.getElementById("SYSTEM:INITIALISE:AppleIdCookie").innerHTML;
+				var displayCookieStr="";
+				/*while(cookieStr.indexOf("&lt;%")!=-1){
+		displayCookieStr=displayCookieStr+cookieStr.substring(0,cookieStr.indexOf("&lt;%"));
+		cookieStr=cookieStr.substring(cookieStr.indexOf("&lt;%"),cookieStr.length);
+		var replaceStr=cookieStr.substring(cookieStr.indexOf("&lt;%")+5, cookieStr.indexOf("%&gt"))
+
+		//alert(eval("jsonObject."+replaceStr));
+		displayCookieStr=displayCookieStr + eval("jsonObject."+replaceStr)
+
+
+		cookieStr=cookieStr.substring(cookieStr.indexOf("%&gt")+5,cookieStr.length);
+		}
+
+				 */
+
+				while(cookieStr.indexOf("!%")!=-1){
+					displayCookieStr=displayCookieStr+cookieStr.substring(0,cookieStr.indexOf("!%"));
+					cookieStr=cookieStr.substring(cookieStr.indexOf("!%"),cookieStr.length);
+					var replaceStr=cookieStr.substring(cookieStr.indexOf("!%")+2, cookieStr.indexOf("%!"))
+
+					//alert(eval("jsonObject."+replaceStr));
+					displayCookieStr=displayCookieStr + eval("jsonObject.employeeDetails."+replaceStr)
+
+
+					cookieStr=cookieStr.substring(cookieStr.indexOf("%!")+2,cookieStr.length);
+				}
+
+				displayCookieStr=displayCookieStr+cookieStr;
+
+				document.getElementById("SYSTEM:INITIALISE:AppleIdCookie").innerHTML=displayCookieStr;
+				document.getElementById("SYSTEM:INITIALISE:AppleIdCookie").style.display="";
+			}
+		}
+
+	}catch(e){
+		document.getElementById("SYSTEM:INITIALISE:AppleIdCookie").style.display="none";
+	}
+
+	/* Start_added as part of changes for radar  <rdar://problem/25098805> */
+    if((null != jQuery("#SYSTEM\\:INITIALISE\\:AppleIdCookie")) &&
+    		jQuery("#SYSTEM\\:INITIALISE\\:AppleIdCookie").is(':hidden') == false){
+      if(jQuery('#email-default-div')){
+		jQuery('#email-default-div').hide();
+	}
+    } 
+    /* End_added as part of changes for radar  <rdar://problem/25098805> */
+
+
+}
+
+
+
+
+/*************   APPLE ID COOKIE *****************/
+
+/*************   COUNTRY INFO *****************/
+function createCountryInfo()
+
+{ 
+
+	if(document.getElementById('showCountryCode')!=null){
+		document.getElementById("showCountryCode").style.display = "none";
+		document.getElementById("showCountryCodeWrapper").style.display = "none";
+		var iframeType="";
+		try{
+			if(document.getElementById("WSINPUT:SystemGenerated:iframeType")==null){
+				iframeType="genifrm";
+			}else{
+				if(document.getElementById("WSINPUT:SystemGenerated:iframeType").value==""){
+					iframeType="genifrm";
+				}else{
+					iframeType=document.getElementById("WSINPUT:SystemGenerated:iframeType").value;	
+				}
+			}
+
+		}catch(e){
+			iframeType="genifrm";
+		}
+
+
+		cookieDecryptCCL(document.getElementById("WSINPUT:SystemGenerated:appId").value,document.getElementById("WSINPUT:SystemGenerated:localeCode").value,iframeType)
+
+
+		//initialiseContryInfo("IND",false,"India","India",true);
+		//	initialiseContryInfo("USA",true,"United States","United States",true);
+		//	parent.initialiseContryInfo(msg.CNTRYCODE3ALIST,msg.CNTRYINFOHIDDEN,msg.DEFAULTCNTRY,msg.CNTRYTEXTDISPLAYEDLIST,msg.SHOWCNTRYINFO);
+
+
+		//{"CNTRYCODE3ALIST":"USA","WSSTATUS":false,"MESSAGE":"Service Successfully invoked","CNTRYINFOHIDDEN":true,"DEFAULTCNTRY":"United States","CNTRYTEXTDISPLAYEDLIST":"United States","SHOWCNTRYINFO":true}
+
+
+	}
+
+}
+
+
+var pageLocale="";
+var userCountryPresent=false;
+var pageCodeCountryISO3A="";
+/*DM/NOI Default Unchecked for Germany,Canada(French) and Canada(English)*/
+var defaultChecked=false;
+/*DM/NOI Default Unchecked for Germany,Canada(French) and Canada(English)*/
+function country(locale,displayTest,code3A)
+{
+	this.locale=locale;
+	this.displayTest=displayTest;
+	this.code3A=code3A;
+}
+
+function getDefaultCountry(){
+	var countryList = new Array()
+	var previousSerchIndex=0;
+	for(var countryLocaleCounter=0;previousSerchIndex!=-1;countryLocaleCounter++){
+	//	var indexOflocale=DataLocale.arrayCountryLocale.indexOf(pageCodeCountryISO3A.toUpperCase(),previousSerchIndex);
+			//var indexOflocale=DataCountry3ACode.arrayCountry3ACode.indexOf(pageCodeCountryISO3A.toUpperCase(),previousSerchIndex);
+		var indexOflocale=$.inArray(pageCodeCountryISO3A.toUpperCase(),DataCountry3ACode.arrayCountry3ACode,previousSerchIndex);
+
+		if(indexOflocale!=-1){
+			var currentDataLocale=DataLocale.arrayCountryLocale[indexOflocale].toLowerCase();
+			var currentDataLocaleCode3A=DataCountry3ACode.arrayCountry3ACode[indexOflocale].toUpperCase();
+			var isDefaultCountry=DataCountryDefaultLangInd.arrayCountryDefaultLangInd[indexOflocale];
+			try{
+				displayString=Data.arrayCountry[indexOflocale];
+				/*DM/NOI Default Unchecked for Germany,Canada(French) and Canada(English)*/
+				var displayStringLocale=DataLocale.arrayCountryLocale[indexOflocale].toLowerCase();
+				for(var count=0;count<defaultPermissionUncheckLocale.length;count++)
+					{
+					if (displayStringLocale==defaultPermissionUncheckLocale[count])
+					{
+					defaultChecked=true;
+					}
+					}
+				/*DM/NOI Default Unchecked for Germany,Canada(French) and Canada(English)*/
+			}catch(e){}
+			if(pageLocale==currentDataLocale){
+				userCountryPresent=true;
+				countryList.unshift(new country(currentDataLocale,displayString,currentDataLocaleCode3A));
+			} else if(isDefaultCountry==1 && !userCountryPresent){
+				countryList.unshift(new country(currentDataLocale,displayString,currentDataLocaleCode3A));
+			}else{
+				countryList.push(new country(currentDataLocale,displayString,currentDataLocaleCode3A));
+			}
+			Data.arrayCountry.splice(indexOflocale,1);
+			DataLocale.arrayCountryLocale.splice(indexOflocale,1);
+			DataCountry3ACode.arrayCountry3ACode.splice(indexOflocale,1);
+			DataCountryDefaultLangInd.arrayCountryDefaultLangInd.splice(indexOflocale,1);
+
+		}
+		previousSerchIndex=indexOflocale;
+	}
+	return countryList;
+}
+
+
+
+function getCustomerCountry(ccl){
+	var countryList = new Array();
+	try{
+		if(ccl!=null && ccl.CCLCOOKIEPRESENT && ccl.COUNTRYDETAIL!=null && ccl.COUNTRYDETAIL.length>0){
+			for(var counter=0;counter<ccl.COUNTRYDETAIL.length;counter++){
+				var displayString=ccl.COUNTRYDETAIL[counter].displayName
+				/*				
+					Data.arrayCountry
+					DataLocale.arrayCountryLocale
+					DataCountry3ACode.arrayCountry3ACode
+					DataCountryDefaultLangInd.arrayCountryDefaultLangInd
+				 */
+				/*DM/NOI Default Unchecked for Germany,Canada(French) and Canada(English)*/
+				var displayStringLocale=ccl.COUNTRYDETAIL[counter].localeCode.toLowerCase();
+				for(var count=0;count<defaultPermissionUncheckLocale.length;count++)
+					{
+					if (displayStringLocale==defaultPermissionUncheckLocale[count])
+					{
+					defaultChecked=true;
+					}
+					}
+				/*DM/NOI Default Unchecked for Germany,Canada(French) and Canada(English)*/
+				
+				var previousSerchIndex=0;
+				for(var countryLocaleCounter=0;previousSerchIndex!=-1;countryLocaleCounter++){
+					var indexOflocale=DataLocale.arrayCountryLocale.indexOf(ccl.COUNTRYDETAIL[counter].localeCode.toLowerCase(),previousSerchIndex);
+					if(indexOflocale!=-1){
+						try{
+							displayString=Data.arrayCountry[indexOflocale];
+						}catch(e){}
+						if(pageLocale==ccl.COUNTRYDETAIL[counter].localeCode){
+							userCountryPresent=true;
+							countryList.unshift(new country(ccl.COUNTRYDETAIL[counter].localeCode,displayString,ccl.COUNTRYDETAIL[counter].counrtyIso3A));
+						} else if(ccl.COUNTRYDETAIL[counter].defaultCountry && !userCountryPresent){
+							countryList.unshift(new country(ccl.COUNTRYDETAIL[counter].localeCode,displayString,ccl.COUNTRYDETAIL[counter].counrtyIso3A));
+						}else{
+							countryList.push(new country(ccl.COUNTRYDETAIL[counter].localeCode,displayString,ccl.COUNTRYDETAIL[counter].counrtyIso3A));
+						}
+						Data.arrayCountry.splice(indexOflocale,1);
+						DataLocale.arrayCountryLocale.splice(indexOflocale,1);
+						DataCountry3ACode.arrayCountry3ACode.splice(indexOflocale,1);
+						DataCountryDefaultLangInd.arrayCountryDefaultLangInd.splice(indexOflocale,1);
+
+					}
+					previousSerchIndex=indexOflocale;
+				}
+
+
+			}
+		}
+		return countryList;	
+	}catch(e){
+	}
+	return null;
+}
+
+
+function checkDefaultCountry()
+{
+if(document.getElementById('rad0')!=null && document.getElementById('rad0').checked==true )
+{
+var country=document.getElementById('rad0').value;
+var locale=country.split("@@")[1];
+UpdatePermissions(locale);
+}
+if(document.getElementById('rad1')!=null && document.getElementById('rad1').checked==true)
+{
+var country=document.getElementById('rad1').value;
+var locale=country.split("@@")[1];
+UpdatePermissions(locale);
+}
+}
+function UpdatePermissions(locale)
+{
+var checkIfLocalePresent=0;
+for(var counter=0;counter<defaultPermissionUncheckLocale.length;counter++)
+{
+if (locale==defaultPermissionUncheckLocale[counter])
+{
+checkIfLocalePresent=1;
+break;
+}
+}
+if (checkIfLocalePresent==1)
+{
+document.getElementById('WEBSERVICESINPUT:PersonInformation:permission').checked=false;
+document.getElementById('WSINPUT:Subscriptions:1').checked=false;
+}
+}
+function initialiseContryInfo(ccl){
+	pageLocale=document.getElementById("WSINPUT:SystemGenerated:localeCode").value;
+//	pageCodeCountryISO3A=document.getElementById("WSINPUT:SystemGenerated:defaultCodeCountryISO3A").value;
+//alert("ISO3ACODE"+document.getElementById("WSINPUT:SystemGenerated:defaultCodeCountryISO3A").value);
+/*DM/NOI Uncheck for Germany and Canada*/
+checkDefaultCountry();
+/*DM/NOI Uncheck for Germany and Canada*/
+if((document.getElementById("WSINPUT:SystemGenerated:defaultCodeCountryISO3A").value)=="")
+{
+		pageCodeCountryISO3A="USA";
+}
+else
+{
+	pageCodeCountryISO3A=document.getElementById("WSINPUT:SystemGenerated:defaultCodeCountryISO3A").value;
+}
+//alert("ISO3ACODE====="+document.getElementById("WSINPUT:SystemGenerated:defaultCodeCountryISO3A").value);
+//	var renderCountryComponent=false;
+	var showCountryComponent=false;
+	var countrySniffingPresent=false;
+	var countryLocaleSniffingPresent=false;
+	if(document.getElementById("SYSTEM:INITIALISE:COUNTRYINFOSNIFFING")!=null){
+		countrySniffingPresent=true
+	}
+	if(document.getElementById("SYSTEM:INITIALISE:COUNTRYSNIFFINGFORLOCALE")!=null){
+		countryLocaleSniffingPresent=true;
+	}
+
+	/*
+//TestCode:
+	pageLocale="fr_ca";
+	pageCodeCountryISO3A="CAN";
+	countrySniffingPresent=false
+	countryLocaleSniffingPresent=false;
+	 */
+
+	if(document.getElementById("contryInfo_LayoutContainer")==null){
+		//CASE-I : "Do not display country section as country information component is absent";
+		showCountryComponent=false;
+		//	renderCountryComponent=false;
+	}else{
+		//	renderCountryComponent=true;
+		var countryList = new Array();
+		countryList= getCustomerCountry(ccl);
+			if(countryList==null ||countryList.length==0){
+			countryList=getDefaultCountry();
+		}
+		/*DM/NOI Uncheck for Germany,Canada(French) and Canada(English)*/
+		if (defaultChecked==true)
+		{
+		document.getElementById('WEBSERVICESINPUT:PersonInformation:permission').checked=false;
+		document.getElementById('WSINPUT:Subscriptions:1').checked=false;
+		}
+		/*DM/NOI Uncheck for Germany,Canada(French) and Canada(English)*/
+		if(!ccl.CCLCOOKIEPRESENT){
+			// CASE-VI : "Country information component is Present"	&& "CCL cookie is not present			
+			showCountryComponent=true;
+			//countryList= getDefaultCountry();
+		}else{
+			if(!countrySniffingPresent && !countryLocaleSniffingPresent){
+				// CASE-II : "Country information component is Present"	&& "CCL cookie is present" &&  countrySniffingPresent not present && countryLocaleSniffingPresent not present Then show country sniffing
+				showCountryComponent=true;
+			}else if(countrySniffingPresent && !countryLocaleSniffingPresent){
+				// CASE-III : Hide the Country Component
+				showCountryComponent=false;
+			}else if(!countrySniffingPresent && countryLocaleSniffingPresent && !userCountryPresent){
+				// CASE-IV : Show the Country Component
+				showCountryComponent=true;
+			}else if(countrySniffingPresent && countryLocaleSniffingPresent && userCountryPresent){
+				// CASE-V :Show the Country Component
+				showCountryComponent=true;
+			}
+		}
+		renderCountryComponent(countryList,showCountryComponent);
+
+	}
+
+}
+
+function renderCountryComponent(countryList,showCountryComponent){
+//	showCountryComponent=true;
+	if(document.getElementById('showCountryCode')!=null)
+	{
+		iFrameProperties.countrySniffingComponent.isPresent=true;
+		iFrameProperties.countrySniffingComponent.isVisible=showCountryComponent;
+		
+		document.getElementById("showCountryCode").style.display = "inline";
+		document.getElementById("showCountryCodeWrapper").style.display = "block";
+		if(document.getElementById("image1radio") !=null){
+		document.getElementById("image1radio").style.display="inline";
+		if(document.getElementById("radButton") !=null){
+	document.getElementById("radButton").style.visibility="hidden";
+	document.getElementById('countrytextbox').setAttribute("style","border:8px solid #f0f0f0");
+	document.getElementById('countrytextbox').style.borderRadius='8px';
+	document.getElementById('countrytextbox').style.marginLeft='-5px';
+	document.getElementById('other_text_id').style.marginTop='-24px';
+	document.getElementById('other_text_id').style.marginTop='-24px';
+				}}
+		for(var counter=0;counter<countryList.length;counter++)
+		{
+			if(counter==0){
+				if(document.getElementById("image1radio") !=null){
+				addRowToCountrySection("countryInfo_Data_Container", counter,"locationContent_"+counter+"_0","<input type='radio' style='margin:0px;padding:0px;visibility:hidden' id='rad"+counter+"' value='"+countryList[counter].code3A+"@@"+countryList[counter].locale+"' name='WSINPUT:COUNTRYINFO'  aria-labelledby='aria_rad_"+counter+"' checked></input>","locationContent_"+counter+"_1","<label class='location' for='rad"+counter+"' id='aria_rad_"+counter+"'>"+countryList[counter].displayTest+"<\/label>");
+				}
+				else
+				{
+				addRowToCountrySection("countryInfo_Data_Container", counter,"locationContent_"+counter+"_0","<input type='radio' style='margin:0px;padding:0px;' id='rad"+counter+"' value='"+countryList[counter].code3A+"@@"+countryList[counter].locale+"' name='WSINPUT:COUNTRYINFO'  aria-labelledby='aria_rad_"+counter+"' checked></input>","locationContent_"+counter+"_1","<label class='location' for='rad"+counter+"' id='aria_rad_"+counter+"'>"+countryList[counter].displayTest+"<\/label>");
+				}
+			}else{
+				iFrameProperties.countrySniffingComponent.multiLocaleRadioListDisplayed=true;
+				if(document.getElementById("image1radio") !=null){
+				addRowToCountrySection("countryInfo_Data_Container", counter,"locationContent_"+counter+"_0","<input type='radio' style='margin:0px;padding:0px;visibility:hidden' id='rad"+counter+"' value='"+countryList[counter].code3A+"@@"+countryList[counter].locale+"' name='WSINPUT:COUNTRYINFO' aria-labelledby='aria_rad_"+counter+"' ></input>","locationContent_"+counter+"_1","<label class='location' for='rad"+counter+"' id='aria_rad_"+counter+"'>"+countryList[counter].displayTest+"<\/label>");
+				}
+				else
+				{
+				addRowToCountrySection("countryInfo_Data_Container", counter,"locationContent_"+counter+"_0","<input type='radio' style='margin:0px;padding:0px;' id='rad"+counter+"' value='"+countryList[counter].code3A+"@@"+countryList[counter].locale+"' name='WSINPUT:COUNTRYINFO' aria-labelledby='aria_rad_"+counter+"' ></input>","locationContent_"+counter+"_1","<label class='location' for='rad"+counter+"' id='aria_rad_"+counter+"'>"+countryList[counter].displayTest+"<\/label>");
+				}
+			}
+		}
+	checkDefaultCountry();
+	}
+	if(!showCountryComponent)
+	{
+		if(document.getElementById('showCountryCode')!=null)
+		{
+			document.getElementById("showCountryCode").style.display = "none";
+			document.getElementById("showCountryCodeWrapper").style.display = "none";
+		}
+	}
+	
+}
+
+
+
+/*************   COUNTRY INFO *****************/
+
+function addRowToCountrySection( tableId,  rowId, cell1Id, cell1Content, cell2Id, cell2Content){
+	var table=document.getElementById(tableId);
+	var row=table.insertRow(rowId);
+	var cell1=row.insertCell(0);
+	var cell2=row.insertCell(1);
+	cell1.setAttribute('id',cell1Id);
+	cell2.setAttribute('id',cell2Id);
+	cell1.innerHTML=cell1Content;
+	cell2.innerHTML=cell2Content;
+}
+
+/*********** OS Detection  ********************/	
+var isWin = false;
+var isWinXPVista = false;
+var platCode;
+var is64bitPlatform=false;
+//function platformDetectionOnload(){
+var plat="";
+var userAgentString = navigator.userAgent;
+var theCurrentContextBrowser = userAgentString.toLowerCase(); 
+//var showWinLink = document.getElementById("ShowWinLink");
+//var showMacLink = document.getElementById("ShowMacLink");
+var platform = null;
+
+var osVersion = null;
+
+var isOSVersionPlatform = false;
+var isAndroidVersionPlatform = false;
+
+isWin  = ( (theCurrentContextBrowser.indexOf("win")!=-1) || (theCurrentContextBrowser.indexOf("16bit")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win95")!=-1) || (theCurrentContextBrowser.indexOf("windows 95")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win16")!=-1) || (theCurrentContextBrowser.indexOf("16bit")!=-1) ||
+		(theCurrentContextBrowser.indexOf("windows 3.1")!=-1) || (theCurrentContextBrowser.indexOf("windows 16-bit")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win 9x 4.90")!=-1) || (theCurrentContextBrowser.indexOf("windows nt 5.")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win98")!=-1) || (theCurrentContextBrowser.indexOf("windows 98")!=-1) ||
+		(theCurrentContextBrowser.indexOf("Windows NT 6.1")!=-1));
+
+
+isWinXPVista =((theCurrentContextBrowser.indexOf("windows nt 5.1")!=-1) || (theCurrentContextBrowser.indexOf("windows XP")!=-1) ||
+		(theCurrentContextBrowser.indexOf("windows nt 6.0")!=-1));
+
+
+isAndroid = ((theCurrentContextBrowser.indexOf("android")!=-1) || (theCurrentContextBrowser.indexOf("Android")!=-1));
+
+isIE = (isWin && theCurrentContextBrowser.indexOf("msie") != -1);
+//isSp2 = (isWin && isIE && (theCurrentContextBrowser.indexOf("sv1") != -1));
+isMac = (theCurrentContextBrowser.indexOf("mac") != -1);
+
+if(userAgentString.length>200){
+	var sessionBrowser = userAgentString.substring(0,200); // SWDLP2-handling browser length field.
+}
+else {
+	sessionBrowser = userAgentString;
+}
+
+
+if(isMac==true )
+{
+	plat="mac";
+	//osVersion = getOSVersion(plat);
+	isOSVersionPlatform = getOSVersionPlatform();
+}else if(isAndroid){
+	plat="android";
+	//isAndroidVersionPlatform = isAndroidVersion();
+}
+else
+{
+	plat="win";
+	//osVersion = getOSVersion(plat);
+	isOSVersionPlatform = getOSVersionPlatform();
+	is64bitPlatform = orderDownloadFor64Bit();
+
+}
+
+
+if(isMac){
+	plat="mac";
+}else if(isAndroid){
+
+	plat="android";
+}
+else{
+	plat="win";
+}
+
+platCode = plat;
+
+
+/*********** OS Detection  ********************/
+
+/*******************ANDROID VERSION Platform************/
+
+function isAndroidVersion() {
+	var isAndroidVersionReq = false;
+	var userAgentString = navigator.userAgent;
+	//var userAgentString = "Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36";
+	//alert(userAgentString);
+	if( userAgentString.indexOf("Android")){
+		isAndroidVersionReq = true;
+	}else{
+		isAndroidVersionReq = false;
+	}
+	//alert(isAndroidVersionReq);
+	//return match ? match[0] : false;
+	return isAndroidVersionReq;
+}
+
+
+/*******************ANDROID VERSION Platform************/
+
+/******************* OSVersion Platform ***********/	
+function getOSVersionPlatform(){
+	var isOSVersionReq = false;
+	var userAgentString = navigator.userAgent;
+
+	var keySetMac = "10_10|10_6|10_8|10_9|10_7|10.10|10.7|10.6|10.9|10.8|Windows NT 5.1|Windows NT 6.0";
+	var nsKeySetMac = new Array();
+	var key;
+	
+	if(keySetMac!=null && !keySetMac == ""){
+		nsKeySetMac = keySetMac.split("|");
+		keyCount = nsKeySetMac.length;
+		for (var i=0; i<keyCount; i++){
+			key = nsKeySetMac[i];
+			if (key!=null && !key=="" && userAgentString.indexOf(key) > -1){
+				isOSVersionReq = true;
+				return isOSVersionReq;
+			}
+
+		}
+		
+	}
+}
+
+/******************* OSVersion Platform ***********/	
+
+
+function getFrameForPlatform(plat) {
+
+	if(plat == 'win') {
+		var bool = orderDownloadFor64Bit();
+
+
+		if(bool==true)
+		{
+			/*  	document.getElementById("l2").style.display = "none";
+		    	document.getElementById("l3").style.display = "inline";
+		    	document.getElementById("l1").style.display = "none";
+		    	platform = "win";
+				strOverrideOSType="true";
+				showWinLink.style.display = "none";
+				showMacLink.style.display = "inline";*/
+		}
+		else
+		{
+			/*	document.getElementById("l2").style.display = "none";
+		    	document.getElementById("l3").style.display = "none";
+		    	document.getElementById("l1").style.display = "inline";
+		    	platform = "win";
+				strOverrideOSType="true";
+				showWinLink.style.display = "none";
+				showMacLink.style.display = "inline";*/
+		}
+	} else {
+		/*  document.getElementById("l2").style.display = "inline";
+		    document.getElementById("l1").style.display = "none";
+		    document.getElementById("l3").style.display = "none";
+		    platform = "mac";
+			strOverrideOSType="false";
+			showWinLink.style.display = "inline";
+			showMacLink.style.display = "none";*/
+	}
+	//     swap(platform) ;
+
+}
+
+
+
+var timeout_int = 600; 
+var is_timeOut = false;
+
+function setSessionTimeOut() {
+	setTimeout( 'setTimeoutStatus();', timeout_int*1000);
+
+}
+
+function setTimeoutStatus()
+{
+	is_timeOut = true;
+}
+
+/*********** 64 Bit Detection  ********************/
+function orderDownloadFor64Bit(){
+
+	var keySetWin = "Win64|IA64|AMD64|x64|WOW64|Windows NT 5.2|x86_64";	
+	var nsKeySetWin = new Array();
+	var key;
+	var is64bitWin = false;
+	var userAgentString = navigator.userAgent;
+
+
+
+	if (keySetWin!=null && !keySetWin == "") 
+	{
+		nsKeySetWin = keySetWin.split("|");
+		keyCount = nsKeySetWin.length;
+		for (var i=0; i<keyCount; i++) 
+		{
+			key = nsKeySetWin[i];
+			if (key!=null && !key=="" && userAgentString.indexOf(key) > -1)
+			{
+				is64bitWin=true;
+				return is64bitWin;
+			}
+		}
+	}
+
+	return false;
+
+
+}
+/*********** 64 Bit Detection  ********************/
+
+/*************** DOWNLOAD OPTION*********************/
+
+//added the android version
+function getAndroidVersion(plat){
+	var userAgentString = navigator.userAgent;
+	var osVersion ;	
+	
+	try{
+		if (plat=='android'){
+		
+			var match = userAgentString.match(/Android\s([0-9\.]*)/);
+			if(match != null){
+				osVersion=match[0];
+			}			
+		}
+		return osVersion;
+		
+	}catch(Exception){
+	}
+}
+
+//added to test the link platform
+function getOSVersion(plat){
+	var userAgentString = navigator.userAgent;
+	var theCurrentContextBrowser = userAgentString.toLowerCase(); 
+	var osVersion ;
+	try{
+		if(plat == 'mac') {
+			
+			isMac105  =  (theCurrentContextBrowser.indexOf("mac os x 10_5")!=-1) || (theCurrentContextBrowser.indexOf("mac os x 10.5")!=-1) ;
+			isMac106  =  (theCurrentContextBrowser.indexOf("mac os x 10_6")!=-1) || (theCurrentContextBrowser.indexOf("mac os x 10.6")!=-1) ;
+			isMac107  =  (theCurrentContextBrowser.indexOf("mac os x 10_7")!=-1) || (theCurrentContextBrowser.indexOf("mac os x 10.7")!=-1) ;
+			isMac108  =  (theCurrentContextBrowser.indexOf("mac os x 10_8")!=-1) || (theCurrentContextBrowser.indexOf("mac os x 10.8")!=-1) ;
+			isMac109  =  (theCurrentContextBrowser.indexOf("mac os x 10_9")!=-1) || (theCurrentContextBrowser.indexOf("mac os x 10.9")!=-1) ;
+			isMac110  =  (theCurrentContextBrowser.indexOf("mac os x 10_10")!=-1) || (theCurrentContextBrowser.indexOf("mac os x 10.10")!=-1);
+			
+			if (isMac105){
+				osVersion="macosx10.5";
+			}
+			else if(isMac106){
+				osVersion="macosx10.6";
+			}
+			else if(isMac107){
+				osVersion="macosx10.7";
+			}
+			else if(isMac108){
+				osVersion="macosx-itunes";
+			}
+			else if(isMac109){
+				osVersion="macosx-itunes";
+			}
+
+			else{
+				osVersion="macosx-itunes";
+			}
+			
+			
+		}else if (plat == 'win'){
+		
+			isWin  = ( (theCurrentContextBrowser.indexOf("win")!=-1) || (theCurrentContextBrowser.indexOf("16bit")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win95")!=-1) || (theCurrentContextBrowser.indexOf("windows 95")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win16")!=-1) || (theCurrentContextBrowser.indexOf("16bit")!=-1) ||
+		(theCurrentContextBrowser.indexOf("windows 3.1")!=-1) || (theCurrentContextBrowser.indexOf("windows 16-bit")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win 9x 4.90")!=-1) || (theCurrentContextBrowser.indexOf("windows nt 5.")!=-1) ||
+		(theCurrentContextBrowser.indexOf("win98")!=-1) || (theCurrentContextBrowser.indexOf("windows 98")!=-1) ||
+		(theCurrentContextBrowser.indexOf("Windows NT 6.1")!=-1));
+
+		isWinXPVista =((theCurrentContextBrowser.indexOf("windows nt 5.1")!=-1) || (theCurrentContextBrowser.indexOf("windows XP")!=-1) ||
+		(theCurrentContextBrowser.indexOf("windows nt 6.0")!=-1));
+		
+
+			if(isWinXPVista){
+				osVersion='winxpvista';
+				
+			}else{
+				osVersion='win';
+			}
+		
+		}
+
+		return 	osVersion;		
+	}catch(Exception){
+	}
+
+}
+
+
+function applyPlatformspacificCode(plat){
+	applyPlatformspacificCodeAll(plat,'none');
+}
+function applyPlatformspacificCodeAll(plat,showAll){
+	try{
+		platCode = plat;
+		if(document.getElementById('download')!=null){
+			var inputElementIds = document.getElementById('download').getElementsByTagName('div');
+			var counter=0;
+			var counterid="";
+			var indexCounter=0;
+			var osElementIdHideShow=new Array();
+			for (var i = 0; i < inputElementIds.length; i++) {
+				var elementId=inputElementIds[i].id;
+				if(elementId.indexOf("system_OS_Hide_Show:")>=0){
+					if(counter==0){
+						counterid=elementId+":radio";
+					}
+					if( elementId.indexOf(":"+plat)>=0){
+						counter=counter+1;
+						document.getElementById(elementId).style.display = "block";
+						osElementIdHideShow[indexCounter]=elementId;
+						indexCounter=indexCounter+1;
+					}else{
+						document.getElementById(elementId).style.display = "none";
+						osElementIdHideShow[indexCounter]=elementId;
+						indexCounter=indexCounter+1;
+					}
+				}
+			}
+			if(showAll=='all'){
+				counter=0;
+			}
+			if(counter==0){
+				for(var i = 0; i < osElementIdHideShow.length; i++){
+					document.getElementById(osElementIdHideShow[i]).style.display = "block";
+					if(i==0){
+						counterid=osElementIdHideShow[i]+":radio";
+					}
+					counter=counter+1;
+				}
+			}
+			if(counterid!=""){	
+				if(counter==1){
+					document.getElementById(counterid).style.display = "none";    
+				}
+			}
+			initilaiseDownloadOption(counterid);
+		}
+	}catch(Exception){
+	}
+
+	if(document.getElementById("SYSTEM:INITIALISE:64BITSNIFFET")!=null){
+		if(document.getElementById("SYSTEM:INITIALISE:64BITSNIFFET").value){
+			try{
+				if(document.getElementById('download')!=null){
+					var inputElementIds = document.getElementById('download').getElementsByTagName('div');
+					var counter=0;
+					var counterid="";
+					var indexCounter=0;
+					var osElementIdHideShow=new Array();
+					for (var i = 0; i < inputElementIds.length; i++) {
+						var elementId=inputElementIds[i].id;
+						if(elementId.indexOf("system_OS_Hide_Show:")>=0){
+							if(document.getElementById(elementId).style.display=="block"){
+								if(counter==0){
+									counterid=elementId+":radio";
+								}
+								var osVersion = getOSVersion(platCode);
+								
+								if(is64bitPlatform){
+									if(elementId.indexOf(":64bit")>=0){
+														
+										/*counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;*/
+									 
+										if(elementId.indexOf("x64")>=0 && osVersion=="win")	{
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+										}else if(elementId.indexOf("new64") >=0 && osVersion=="winxpvista"){
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+											
+										}else{
+											document.getElementById(elementId).style.display = "none";
+                                            osElementIdHideShow[indexCounter]=elementId;
+                                            indexCounter=indexCounter+1;
+										}
+									}else{
+										document.getElementById(elementId).style.display = "none";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}
+								}else{
+
+
+									if(elementId.indexOf(":64bit")<0 ){
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}else{
+										document.getElementById(elementId).style.display = "none";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}
+
+								}
+
+
+							}
+						}
+					}
+					if(showAll=='all'){
+						counter=0;
+					}
+					if(counter==0){
+						for(var i = 0; i < osElementIdHideShow.length; i++){
+							document.getElementById(osElementIdHideShow[i]).style.display = "block";
+							if(i==0){
+								counterid=osElementIdHideShow[i]+":radio";
+							}
+							counter=counter+1;
+						}
+					}
+					if(counterid!=""){	
+						if(counter==1){
+							document.getElementById(counterid).style.display = "none";    
+						}
+					}
+					initilaiseDownloadOption(counterid);
+				}
+			}catch(Exception){
+			}
+
+		}
+
+	}
+	
+	if(document.getElementById("SYSTEM:INITIALISE:OSDETECTION")!=null){
+		if(document.getElementById("SYSTEM:INITIALISE:OSDETECTION").value=='true'){
+			try{
+				if(document.getElementById('download')!=null){
+					var inputElementIds = document.getElementById('download').getElementsByTagName('div');
+					var counter=0;
+					var counterid="";
+					var indexCounter=0;
+					var osElementIdHideShow=new Array();
+					for (var i = 0; i < inputElementIds.length; i++) {
+						var elementId=inputElementIds[i].id;
+						if(elementId.indexOf("system_OS_Hide_Show:")>=0){
+							if(document.getElementById(elementId).style.display=="block"){
+								if(counter==0){
+									counterid=elementId+":radio";
+								
+								}
+								var osVersion = getOSVersion(platCode);
+								var userAgentString = navigator.userAgent;
+								var isOSVersionPlatform;
+								if(platCode == 'win' && userAgentString.indexOf("mac"))
+								{
+									isOSVersionPlatform = false;
+								}
+								else{
+
+									isOSVersionPlatform =  getOSVersionPlatform();
+								}
+								if(isOSVersionPlatform){	
+									if(elementId.indexOf(":OSdetect")>=0 && elementId.indexOf(osVersion)>=0){
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}else{
+										document.getElementById(elementId).style.display = "none";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}
+								}else{
+									if(elementId.split(":")[2] == osVersion) {
+									//if(elementId.indexOf(osVersion) > 0){
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+										
+									}else{
+										document.getElementById(elementId).style.display = "none";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									
+									}
+									
+								}
+
+							}
+						}
+					}
+					if(showAll=='all'){
+						counter=0;
+					}
+					if(counter==0){
+						for(var i = 0; i < osElementIdHideShow.length; i++){
+							document.getElementById(osElementIdHideShow[i]).style.display = "block";
+							if(i==0){
+								counterid=osElementIdHideShow[i]+":radio";
+							}
+							counter=counter+1;
+						}
+					}
+					if(counterid!=""){	
+						if(counter==1){
+							document.getElementById(counterid).style.display = "none";    
+						}
+					}
+					initilaiseDownloadOption(counterid);
+				}
+			}catch(Exception){
+			}
+
+		}	
+	}
+	
+	/*if(document.getElementById("SYSTEM:INITIALISE:ANDROIDVERSION").value=='true'){
+			try{
+				if(document.getElementById('download')!=null){
+					var inputElementIds = document.getElementById('download').getElementsByTagName('div');
+					var counter=0;
+					var counterid="";
+					var indexCounter=0;
+					var osElementIdHideShow=new Array();
+					for (var i = 0; i < inputElementIds.length; i++) {
+						var elementId=inputElementIds[i].id;
+						if(elementId.indexOf("system_OS_Hide_Show:")>=0){
+							if(document.getElementById(elementId).style.display=="block"){
+								if(counter==0){
+									counterid=elementId+":radio";
+								
+								}
+								var osVersion = getAndroidVersion(platCode);
+								var userAgentString = navigator.userAgent;
+								var isOSVersionPlatform;
+// 								if(platCode == 'win' && userAgentString.indexOf("mac"))
+// 								{
+// 									isOSVersionPlatform = false;
+// 								}
+// 								else{
+// 
+// 									isOSVersionPlatform =  getOSVersionPlatform();
+// 								}
+							//	alert(isOSVersionPlatform);
+								if(isAndroidVersionPlatform){	
+									if(elementId.indexOf(":android")>=0 && elementId.indexOf(osVersion)>=0){
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}else{
+										document.getElementById(elementId).style.display = "none";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									}
+								}else{
+								//	alert("osVersion:"+osVersion);
+									console.log("elementId.indexOf(osVersion)"+elementId.indexOf(osVersion));
+									if(elementId.split(":")[2] == osVersion) {
+									//if(elementId.indexOf(osVersion) > 0){
+										counter=counter+1;
+										document.getElementById(elementId).style.display = "block";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+										
+									}else{
+										document.getElementById(elementId).style.display = "none";
+										osElementIdHideShow[indexCounter]=elementId;
+										indexCounter=indexCounter+1;
+									
+									}
+									
+								}
+
+							}
+						}
+					}
+					if(showAll=='all'){
+						counter=0;
+					}
+					if(counter==0){
+						for(var i = 0; i < osElementIdHideShow.length; i++){
+							document.getElementById(osElementIdHideShow[i]).style.display = "block";
+							if(i==0){
+								counterid=osElementIdHideShow[i]+":radio";
+							}
+							counter=counter+1;
+						}
+					}
+					if(counterid!=""){	
+						if(counter==1){
+							document.getElementById(counterid).style.display = "none";    
+						}
+					}
+					initilaiseDownloadOption(counterid);
+				}
+			}catch(Exception){
+			}
+
+	} */
+}
+
+
+
+var binaryUrl="";
+var thankYouUrl="";
+var thankYouMode ="";
+var downloadId="";
+
+
+function initilaiseDownloadOption(elementId){
+	try{
+		document.getElementById(elementId).checked=true;
+		binaryUrl= document.getElementById(elementId+":binaryUrl").value;
+		thankYouUrl= document.getElementById(elementId+":thankYouUrl").value;
+		thankYouMode =  document.getElementById(elementId+":thankYouUrlMode").value;
+		downloadId =  document.getElementById(elementId+":downloadId").value;
+
+		document.getElementById("WSINPUT:SystemGenerated:binaryUrl").value=binaryUrl;
+		document.getElementById("WSINPUT:SystemGenerated:thankYouUrl").value=thankYouUrl;
+		document.getElementById("WSINPUT:SystemGenerated:thankYouUrlMode").value=thankYouMode;
+		document.getElementById("WSINPUT:SystemGenerated:downloadId").value=downloadId;
+	}catch(e){
+		//alert(e);
+	}
+}
+
+
+/*************** DOWNLOAD OPTION*********************/
+
+/*************** DOWNLOAD BUTTON*********************/
+/*************** Added to remove pop up window while downloading - 30th May 2012*********************/
+var downloadStartedBoolean=false;
+var defaultRedirectionInvoked=false;
+var redirectionTime="3000";
+var slowDownloadWaitTime="30000";
+
+
+function downloadStartedStopClick()
+{
+	/***************  Start of changes for CR 13716523 SWDL:Bug fix:Email ID field does not accept '+' sign **************/
+	//alert("You have already click the button Download will start shortly");
+	/***************  End of changes for CR 13716523 SWDL:Bug fix:Email ID field does not accept '+' sign **************/
+}
+
+//removing 3second delay as recommended by Saurav
+
+function binaryDownloadStarted()
+{
+	if(defaultRedirectionInvoked){
+		redirectURL();
+	}else{
+		downloadStartedBoolean=true;
+	}
+
+}
+
+/*
+function binaryDownloadStarted()
+{
+	redirectURL();
+}
+ */
+/*************** Added to remove pop up window while downloading - 30th May 2012*********************/
+
+function trim()
+{
+ return this.replace(/^\s+|\s+$/g, ''); 
+}
+
+function countryInfoPostInitialization(){
+try{
+	if(document.getElementById("contryInfo_LayoutContainer")!=null){
+		if(document.getElementById("WEBSERVICESINPUT:COUNTRYINFO:TEXTBOXLOCALE")!=null && document.getElementById("countrytextbox")!=null){
+			
+			if(document.getElementById("WSINPUT:SystemGenerated:plcHolderTextDefaultText")!=null){
+				if(document.getElementById("countrytextbox").value!="" && document.getElementById("WSINPUT:SystemGenerated:plcHolderTextDefaultText").value!=document.getElementById("countrytextbox").value){
+					iFrameProperties.countrySniffingComponent.contrySelectedInOther=true;
+				}
+			}
+
+			var indexOflocale=Data.arrayCountry.indexOf((document.getElementById("countrytextbox").value).trim());
+
+			if(indexOflocale!=-1){
+				document.getElementById("WEBSERVICESINPUT:COUNTRYINFO:TEXTBOXLOCALE").value=DataLocale.arrayCountryLocale[indexOflocale];
+ 				iFrameProperties.countrySniffingComponent.contrySelectedInOther=true;
+				try{
+					var countryOtherText3ACode=DataCountry3ACode.arrayCountry3ACode[indexOflocale];
+					try{
+						if(countryOtherText3ACode!=null && countryOtherText3ACode!="" &&countryOtherText3ACode.length==3){
+							var countryOtherText3ACodeRegExp = new RegExp(countryOtherText3ACode,'g');
+							var multipleLocale=DataCountry3ACode.arrayCountry3ACode.toString().match(countryOtherText3ACodeRegExp).length;
+							if(multipleLocale>=2){
+								iFrameProperties.countrySniffingComponent.multiLocaleContrySelectedInOther=true;
+							}
+						}
+					}catch(e){}
+				}catch(e){}
+			}					
+		}
+	}
+	}catch(e){}
+}
+
+
+
+var  iFrameProperties = {
+	"countrySniffingComponent":{
+		"isPresent":false,
+		"isVisible":false,
+		"multiLocaleRadioListDisplayed":false,
+		"contrySelectedInOther":false,
+		"multiLocaleContrySelectedInOther":false
+	}
+}
+
+
+// iFrameProperties.countrySniffingComponent.isPresent
+// iFrameProperties.countrySniffingComponent.isVisible
+// iFrameProperties.countrySniffingComponent.multiLocaleRadioListDisplayed
+// iFrameProperties.countrySniffingComponent.contrySelectedInOther
+// iFrameProperties.countrySniffingComponent.multiLocaleContrySelectedInOther
+
+
+function prefLangFlagIndicateValue(){
+
+	if(iFrameProperties.countrySniffingComponent.contrySelectedInOther){
+    	if (iFrameProperties.countrySniffingComponent.multiLocaleContrySelectedInOther){
+    		return true;
+    	}
+    }else if (iFrameProperties.countrySniffingComponent.multiLocaleRadioListDisplayed && iFrameProperties.countrySniffingComponent.isVisible){
+		return true;
+	}
+	
+	if(document.getElementById("WSINPUT:PersonInformation:prefLang")!=null){
+		if(document.getElementById("WSINPUT:PersonInformation:prefLang")[document.getElementById("WSINPUT:PersonInformation:prefLang").selectedIndex].value!=""){
+			return true;
+		}
+	}
+	return false;
+
+}
+
+function prefLangFlagInitialization(){
+        if(document.getElementById("WSINPUT:SystemGenerated:prefLangFlag")!=null){
+                 document.getElementById("WSINPUT:SystemGenerated:prefLangFlag").value="";
+        }
+
+	if(prefLangFlagIndicateValue()){
+		if(document.getElementById("WSINPUT:SystemGenerated:prefLangFlag")!=null){
+			document.getElementById("WSINPUT:SystemGenerated:prefLangFlag").value="Y";
+		}
+	}
+}
+
+
+
+
+function download(){
+	
+	var validd = validate();
+	countryInfoPostInitialization();
+	prefLangFlagInitialization();
+	
+	if(!validd){
+		return false;
+	}
+	var requestStringParent=bulidData();
+	var isMiniIframeReq=thankYouMode;
+	try{
+		if(validd){
+			if(document.getElementById("submitOperation").value != null){
+				var operationType=document.getElementById("submitOperation").value
+				dataCapture(requestStringParent);
+			}
+			if(document.getElementById("btnType").value == 'Download Button'){
+				if(binaryUrl !=""){
+					/*************** Added to remove pop up window while downloading - 30th May 2012*********************/
+					$('#swdlDownloadIframe').ready(function() 
+							{
+						binaryDownloadStarted();
+							});
+					document.getElementById("swdlDownloadIframe").src=binaryUrl;
+					document.getElementById("DOWNLOAD_EVENT_COMPONENT").onclick=downloadStartedStopClick;
+					/*************** Added to remove pop up window while downloading - 30th May 2012*********************/	
+				}
+			}else{
+				thankYouUrl= document.getElementById("gnrThankYouUrl").value;
+				thankYouMode =  document.getElementById("gnrThankYouUrlMode").value;
+				isMiniIframeReq = thankYouMode;
+			}
+
+			if(isMiniIframeReq == 'Y'){
+				/*************** Added to remove pop up window while downloading - 30th May 2012*********************/
+				if(binaryUrl !=""){
+					setTimeout("checkRedirectURL()",3000);
+					setTimeout("redirectURL()",30000);
+				}else{
+					setTimeout("redirectURL()",1000);
+					//removing 3second delay as recommended by Saurav
+					//	redirectURL();
+				}
+			}else if(binaryUrl != "" && isMiniIframeReq=='R'){
+
+				document.write('<iframe frameborder="0" scrolling="no" height="100%" width="100%" src="'+thankYouUrl+'"></iframe>');
+			}else if(binaryUrl != "" && isMiniIframeReq=='N') {
+
+				document.write('<iframe frameborder="0" scrolling="yes" height="100%" width="100%" src="'+thankYouUrl+'"></iframe>');
+			}else{
+				document.write('<iframe frameborder="0" scrolling="yes" height="100%" width="100%" src="'+thankYouUrl+'"></iframe>');
+			}
+		}
+
+	}catch(e){
+		//alert(e);
+	}
+}
+
+/*************** Added to remove pop up window while downloading - 30th May 2012*********************/
+function checkRedirectURL(){
+	if(downloadStartedBoolean){
+		redirectURL();
+	}else{
+		defaultRedirectionInvoked=true;
+	}
+}
+/*************** Added to remove pop up window while downloading - 30th May 2012*********************/
+
+function redirectURL(){
+	window.top.location.href = thankYouUrl;
+}
+/*************** DOWNLOAD BUTTON*********************/
+/********* DATA VALIDATION **************/
+var dtCh= "/";
+var minYear=1900;
+var maxYear=2100;
+
+function isInteger(s){
+	var i;
+	for (i = 0; i < s.length; i++){   
+		// Check that current character is number.
+		var c = s.charAt(i);
+		if (((c < "0") || (c > "9"))) return false;
+	}
+	// All characters are numbers.
+	return true;
+}
+
+function stripCharsInBag(s, bag){
+	var i;
+	var returnString = "";
+	// Search through string's characters one by one.
+	// If character is not in bag, append to returnString.
+	for (i = 0; i < s.length; i++){   
+		var c = s.charAt(i);
+		if (bag.indexOf(c) == -1) returnString += c;
+	}
+	return returnString;
+}
+
+function daysInFebruary (year){
+	// February has 29 days in any year evenly divisible by four,
+	// EXCEPT for centurial years which are not also divisible by 400.
+	return (((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28 );
+}
+function DaysArray(n) {
+	for (var i = 1; i <= n; i++) {
+		this[i] = 31;
+		if (i==4 || i==6 || i==9 || i==11) {this[i] = 30;}
+		if (i==2) {this[i] = 29;}
+	} 
+	return this;
+}
+
+
+
+
+function isDate(date,format){
+	var d = new Date();
+	var currentYY=(d.getFullYear()+"").substring(2,4);
+	var formatArr=format.split('/');
+	var dateArr=date.split('/');
+	if(formatArr.length!=dateArr.length){
+		return false;
+	}
+	var year="2000";
+	var day="01";
+	var month="01";
+	for(var counter=0;counter<formatArr.length;counter++){
+		var formatStr=formatArr[counter];
+		if(formatStr.indexOf("M")>=0){
+			if(formatStr=="MM"){
+				if(dateArr[counter].length!=2){
+					return false;
+				}else{
+					month=dateArr[counter];
+				}	
+			}else if(formatStr=="M"){
+				if(dateArr[counter].length<2){
+					month="0"+dateArr[counter];
+				}else{
+					month=dateArr[counter];
+				}
+			}else{
+				month="";
+			}
+		}else if(formatStr.indexOf("d")>=0){
+			if(formatStr=="dd"){
+				if(dateArr[counter].length!=2){
+					return false;
+				}else{
+					day=dateArr[counter];
+				}	
+			}else if(formatStr=="d"){
+				if(dateArr[counter].length<2){
+					day="0"+dateArr[counter];
+				}else{
+					day=dateArr[counter];
+				}
+			}else{
+				day="";
+			}
+		}else if (formatStr.indexOf("y")>=0){
+			if(formatStr=="yyyy"){
+				if(dateArr[counter].length==4){
+					year=dateArr[counter];
+				}else{
+					return false;
+				}	
+			}else if(formatStr=="yy"){
+
+				if(dateArr[counter].length==2){
+					if(parseInt(dateArr[counter])<parseInt(currentYY)){
+						year="20"+dateArr[counter];
+					}else{
+						year="19"+dateArr[counter];
+					}
+				}else{
+					return false;
+				}
+			}else{
+				year="";
+			}
+
+
+		}
+	}
+
+	if(year=="" || month=="" || day==""){
+		return false;
+	}
+
+
+
+	if(month.lenght<2){
+		month="0"+month;
+	}
+
+
+	if(day.lenght<2){
+		day="0"+day;
+	}
+
+
+	dtStr=month+"/"+day+"/"+year;
+
+
+
+	var daysInMonth = DaysArray(12);
+	var pos1=dtStr.indexOf(dtCh);
+	var pos2=dtStr.indexOf(dtCh,pos1+1);
+	var strMonth=dtStr.substring(0,pos1);
+	var strDay=dtStr.substring(pos1+1,pos2);
+	var strYear=dtStr.substring(pos2+1);
+	strYr=strYear;
+	if (strDay.charAt(0)=="0" && strDay.length>1) strDay=strDay.substring(1);
+	if (strMonth.charAt(0)=="0" && strMonth.length>1) strMonth=strMonth.substring(1);
+	for (var i = 1; i <= 3; i++) {
+		if (strYr.charAt(0)=="0" && strYr.length>1) strYr=strYr.substring(1);
+	}
+	month=parseInt(strMonth);
+	day=parseInt(strDay);
+	year=parseInt(strYr);
+	if (pos1==-1 || pos2==-1){
+		return false;
+	}
+	if (strMonth.length<1 || month<1 || month>12){
+		return false;
+	}
+	if (strDay.length<1 || day<1 || day>31 || (month==2 && day>daysInFebruary(year)) || day > daysInMonth[month]){
+		return false;
+	}
+	if (strYear.length != 4 || year==0 || year<minYear || year>maxYear){
+		return false;
+	}
+	if (dtStr.indexOf(dtCh,pos2+1)!=-1 || isInteger(stripCharsInBag(dtStr, dtCh))==false){
+		return false;
+	}
+	return true;
+}
+
+
+/********* DATA VALIDATION **************/
+
+
+
+/*********** Phone Number Validation ********************/
+function isNumeric(strString){
+	var strValidChars = "0123456789";
+	var strChar;
+	var blnResult = true;
+
+	if (strString.length == 0) return false;
+
+	//? test strString consists of valid characters listed above
+	for (i = 0; i < strString.length && blnResult == true; i++)
+	{
+		strChar = strString.charAt(i);
+		if (strValidChars.indexOf(strChar) == -1)
+		{
+			blnResult = false;
+		}
+	}
+	return blnResult;
+}
+
+function phoneValidation(phNumber,format){
+	if(phNumber.length!=format.length){
+		return false;
+	}
+	var phNumberAttay=phNumber.split("-");
+	var formatArray=format.split("-");
+
+	if(phNumberAttay.length!=formatArray.length){
+		return false;
+	}
+
+	for(var counter=0;counter<formatArray.length;counter++){
+		if(phNumberAttay[counter].length!=formatArray[counter].length){
+			return false;
+		}else{
+			if(!isNumeric(phNumberAttay[counter])){
+				return false;
+			}
+		}
+
+	}
+
+	return true;
+}
+
+/*********** Phone Number Validation ********************/

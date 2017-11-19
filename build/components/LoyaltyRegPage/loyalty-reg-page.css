@@ -1,0 +1,108 @@
+/* line 3, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.textField-large {
+  /* height: 38px; */
+  padding: 6px 10px;
+  background-color: #fff;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 32px;
+  width: 255px;
+  height: 82px;
+}
+
+/* line 20, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.textField-large > input {
+  text-align: center;
+}
+
+/* line 27, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* line 33, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-container .p-c0, .p-container .p-c1, .p-container .p-c2, .p-container .p-c3, .p-container .p-c4, .p-container .p-c5 {
+  box-sizing: border-box;
+  min-height: 150px;
+  min-width: 150px;
+}
+
+/* line 40, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-c0, .p-c1 {
+  border: 1px solid;
+  border-color: #003476;
+}
+
+/* line 46, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-c2 {
+  border: 1px solid;
+  border-color: #0062d2;
+}
+
+/* line 52, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-c3 {
+  border: 1px solid;
+  border-color: #b4d2f7;
+}
+
+/* line 58, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-c4 {
+  border: 1px solid;
+  border-color: #d5dfef;
+}
+
+/* line 64, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-c5 {
+  border: 1px solid;
+  border-color: #dfe1e5;
+}
+
+/********************************************************************************/
+/* line 71, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+/* line 79, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+.p-c0, .p-c1, .p-c2, .p-c3, .p-c4, .p-c5 {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  /* line 87, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+  .p-c0 {
+    width: 90%;
+  }
+  /* line 92, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+  .p-c1 {
+    width: 60%;
+  }
+  /* line 97, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+  .p-c2 {
+    width: 40%;
+  }
+  /* line 102, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+  .p-c3, .p-c4, .p-c5 {
+    width: 33.33%;
+  }
+  /* line 107, E:/.prj/lo/BSWClientApp/src/components/LoyaltyRegPage/loyalty-reg-page.scss */
+  .p-container {
+    width: auto;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*# sourceMappingURL=../../../build/components/LoyaltyRegPage/loyalty-reg-page.map */

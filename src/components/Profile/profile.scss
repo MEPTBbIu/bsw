@@ -1,0 +1,85 @@
+.p-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    .p-c1,
+    .p-c2,
+    .p-c3,
+    .p-c4,
+    .p-c5 {
+        box-sizing: border-box;
+        min-height: 150px;
+        min-width: 150px;
+    }
+}
+
+.p-c1 {
+    border: 1px solid;
+    border-color: #003476;
+}
+
+.p-c2 {
+    border: 1px solid;
+    border-color: #0062d2;
+}
+
+.p-c3 {
+    border: 1px solid;
+    border-color: #b4d2f7;
+}
+
+.p-c4 {
+    border: 1px solid;
+    border-color: #d5dfef;
+}
+
+.p-c5 {
+    border: 1px solid;
+    border-color: #dfe1e5;
+}
+
+
+/********************************************************************************/
+
+.p-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.p-c1,
+.p-c2,
+.p-c3,
+.p-c4,
+.p-c5 {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .p-c1 {
+        width: 60%;
+    }
+    .p-c2 {
+        width: 40%;
+    }
+    .p-c3,
+    .p-c4,
+    .p-c5 {
+        width: 33.33%;
+    }
+    .p-container {
+        width: auto;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.dd-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400; //  text-align: center;
+    padding: 20px;
+    max-width: 768px;
+    max-height: 1024px;
+}

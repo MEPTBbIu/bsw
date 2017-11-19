@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+
+		html,
+		body,
+		.Grid{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			display: block;
+			overflow: hidden;
+		}
+
+			body {
+				font-family: Roboto, sans-serif;
+				-moz-osx-font-smoothing: grayscale;
+				-webkit-font-smoothing: antialiased;
+			}
+
+
+		.mdc-typography {
+			font-family: Roboto, sans-serif;
+			-moz-osx-font-smoothing: grayscale;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		.Grid {
+			display: flex;
+			flex-direction: column;
+			align-content: center;
+			align-items: center;
+			flex: 0 0 auto;
+			background-color: black;
+		}
+
+		.bs-logo {
+			/*top: 180px;
+			left: 575px;*/
+			margin: 8.8% auto 0 auto;
+			width: 25.2%;
+
+		}
+
+		.bs-mid-text{
+			/*top=952px - 712px*/
+			margin: 11.72% auto 0 auto;
+			width: 76%;
+			height: auto;
+		}
+
+		.bs-bottom-text{
+			margin: auto auto 10.30% auto;;
+			width: 66.27%;
+			height: auto;
+		}
+
+		img{
+			width: 100%;
+			height:auto;
+			overflow: hidden;
+			display: block;
+			margin: 0;
+			padding: 0;
+		}
+/* 1536x2048
+// 20,48*/
+	</style>
+
+</head>
+<body>
+
+
+<div id="root" class="Grid">
+	<div class="bs-logo">
+		<img src="../../assets/images/big-black-logo.png" class=""/>
+	</div>
+	<div class="bs-mid-text">
+		<img src="../../assets/images/slogan-mid.png" class=""/>
+	</div>
+	<div class="bs-bottom-text">
+		<img src="../../assets/images/slogan-bottom.png" class=""/>
+	</div>
+
+	<div className="press-to-start shadow">
+		<span className="text">Коснитесь экрана чтобы продолжить</span>
+	</div>
+</div>
+</body>
+</html>

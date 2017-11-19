@@ -1,0 +1,12 @@
+{
+	"addons": [],
+	"env": {
+
+		"NPM_CONFIG_PRODUCTION": {
+			"value": "false"
+		}
+
+	},
+	"name": "bsw-react-redux-starter",
+	"scripts": {}
+}

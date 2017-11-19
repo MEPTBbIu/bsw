@@ -1,0 +1,60 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "task-development",
+			"problemMatcher": [
+				{
+					"owner": "custom",
+					"pattern": {
+						"regexp": "____________"
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^webpack: Compiling\\.\\.\\.$",
+						"endsPattern": "^webpack: (Compiled successfully|Failed to compile)\\.$"
+					}
+				}
+			],
+			"isBackground": true,
+			"label": "development"
+		},
+		{
+			"type": "npm",
+			"script": "task-build",
+			"problemMatcher": [
+				{
+					"owner": "custom",
+					"pattern": {
+						"regexp": "____________"
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^webpack: Compiling\\.\\.\\.$",
+						"endsPattern": "^webpack: (Compiled successfully|Failed to compile)\\.$"
+					}
+				}
+			],
+			"isBackground": true,
+			"label": "build-watch"
+		},
+		{
+			"type": "shell",
+			"command": "webpack --config webpack.config.js --colors",
+			"label": "build-x",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared"
+			},
+			"problemMatcher": ["$awesometsc", "$awesomets-lint"]
+
+			}
+
+
+	]
+}

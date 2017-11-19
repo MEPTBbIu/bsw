@@ -1,0 +1,75 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+			"webRoot": "${workspaceRoot}/dist/",
+		  "sourceMapPathOverrides": {
+               "webpack:///*": "${webRoot}/*"
+				}
+
+        	},
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Chrome Debug",
+            "url": "http://xo/lo/",
+            "webRoot": "${workspaceRoot}/dist/",
+           // "userDataDir": "${workspaceRoot}/.vscode/chrome",
+            "sourceMaps": true,
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": ["node_modules/**"],
+         //  "sourceMapPathOverrides": {
+         //       "webpack:///*": "${webRoot}/*"
+		//	},
+			"runtimeArgs": [
+				"--remote-debugging-port=9222"
+			],
+			//"runtimeExecutable": "D:\\is\\chrome-win32\\chrome.exe",
+			"port": 9222,
+			"preLaunchTask": "development"
+		},
+		{
+            "type": "chrome",
+            "request": "launch",
+            "name": "Chrome Debug IIS",
+            "url": "http://xo.bsw.sale/bsw/",
+			"webRoot": "${workspaceRoot}/dist/",
+			"pathMapping": {
+				"/": "${workspaceRoot}"
+			},
+            "userDataDir": "${workspaceRoot}/.vscode/chrome",
+            "sourceMaps": true,
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": ["node_modules/**"],
+           "sourceMapPathOverrides": {
+                "webpack:///*": "${webRoot}/*"
+			},
+			"runtimeArgs": [
+				"--remote-debugging-port=9222"
+			],
+			"runtimeExecutable": "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+			"port": 9222,
+			"preLaunchTask": "build-watch"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+				"console": "externalTerminal",
+			"name": "awesome-ts",
+			"args": ["install"],
+		"runtimeExecutable": "webpack",
+		"runtimeArgs": [
+			"--config webpack.config.js",
+			"--colors",
+			"--progress",
+			"--debug"
+		]
+
+		}
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "short_name": "BSW",
+    "name": "Black Star Wear Loyalty",
+	"icons": [
+		{
+			"src": "/assets/icon/favicon.ico",
+			"sizes": "192x192",
+			"type": "image/png"
+		}
+	],
+    "start_url": "./index.html",
+    "theme_color": "#000000",
+	"background_color": "#ffffff",
+	"display": "fullscreen",
+	"orientation": "portrait",
+	"serviceworker": {
+		"scope": "",
+		"type": "",
+		"src": "/worker.js",
+		"use_cache": false
+	},
+	"categories": [ "loyalty", "blackstar", "wear", "Одежда", "Мода" ],
+	"dir": "ltr",
+	"lang": "ru-RU",
+	"description": ""
+	
+
+}

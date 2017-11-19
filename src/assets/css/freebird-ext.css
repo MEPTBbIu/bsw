@@ -1,0 +1,400 @@
+.ext-centredTitle {
+    margin: 15px auto;
+    text-align: center;
+}
+
+.ext-subTitle {
+    font-size: 100%;
+    max-width: 60%;
+}
+
+.ext-backgroundColor {
+    background-color: rgba(96, 125, 139, 0.13)
+}
+
+/*****
+***
+****/
+
+.freebirdThemedTab .exportTab .freebirdThemedBadge {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.freebirdThemedTab .exportTab.isSelected .freebirdThemedBadge {
+	background-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedCheckbox.isChecked:not(.isDisabled) {
+	border-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedCheckbox.isCheckedNext > .exportInk, .freebirdThemedCheckbox.isFocused > .exportInk {
+	background-color: rgba(96, 125, 139, 0.15);
+}
+
+.freebirdThemedCheckboxDarkerDisabled.isChecked.isDisabled {
+	border-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedCheckboxDarkerDisabled.isDisabled:not(.isChecked) {
+	border-color: rgba(0, 0, 0, .26);
+}
+
+.freebirdQuizResponse .freebirdThemedCheckboxDarkerDisabled.isChecked.isDisabled, .takeout .freebirdThemedCheckboxDarkerDisabled.isDisabled {
+	border-color: rgba(0, 0, 0, .54);
+}
+
+.freebirdThemedRadio.isChecked:not(.isDisabled) .exportOuterCircle, .freebirdThemedRadio .exportInnerCircle {
+	border-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedRadio.isCheckedNext > .exportInk, .freebirdThemedRadio.isFocused > .exportInk {
+	background-color: rgba(96, 125, 139, 0.15);
+}
+
+.freebirdThemedRadioDarkerDisabled.isChecked.isDisabled .exportOuterCircle, .freebirdThemedRadioDarkerDisabled.isChecked.isDisabled .exportInnerCircle {
+	border-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedRadioDarkerDisabled.isDisabled:not(.isChecked) .exportOuterCircle {
+	border-color: rgba(0, 0, 0, .26);
+}
+
+.freebirdQuizResponse .freebirdThemedRadioDarkerDisabled.isChecked.isDisabled .exportOuterCircle, .freebirdQuizResponse .freebirdThemedRadioDarkerDisabled.isChecked.isDisabled .exportInnerCircle, .takeout .freebirdThemedRadioDarkerDisabled.isDisabled .exportOuterCircle {
+	border-color: rgba(0, 0, 0, .54);
+}
+
+.freebirdThemedSelectOptionDarkerDisabled.isSelected.isDisabled {
+	color: rgba(0, 0, 0, .87);
+}
+
+.freebirdThemedFlatButton .exportInk {
+	background-image: radial-gradient( circle farthest-side,rgba(96, 125, 139, 0.15),rgba(96, 125, 139, 0.15) 80%,rgba(96, 125, 139, 0) 100% );
+}
+
+.freebirdThemedFlatButton {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdThemedFlatButton.isDisabled {
+	color: rgba(96, 125, 139, 0.5);
+}
+
+.freebirdThemedFlatButton.isFocused .exportOverlay {
+	background-color: rgba(96, 125, 139, 0.15);
+}
+
+.freebirdThemedFlatButtonInverted .exportInk {
+	background-image: radial-gradient( circle farthest-side,rgba(255, 255, 255, .3),rgba(255, 255, 255, .3) 80%,rgba(255, 255, 255, 0) 100% );
+}
+
+.freebirdThemedFlatButtonInverted {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdThemedFlatButtonInverted.isDisabled {
+	color: rgba(255, 255, 255, 1);
+	opacity: .54;
+}
+
+.freebirdThemedFlatButtonInverted.isFocused .exportOverlay {
+	background-color: rgba(255, 255, 255, .3);
+}
+
+.freebirdThemedTab .exportIndicator {
+	background-color: rgb(96, 125, 139);
+}
+
+.ds-hc-black .freebirdThemedTab .exportIndicator {
+	background-color: white;
+	-ms-high-contrast-adjust: none;
+}
+
+.ds-hc-white .freebirdThemedTab .exportIndicator {
+	background-color: black;
+	-ms-high-contrast-adjust: none;
+}
+
+.freebirdThemedTab .exportTab {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.freebirdThemedTab .exportTab.isSelected {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdThemedTab .exportTabPageButton {
+	fill: rgb(96, 125, 139);
+}
+
+.freebirdThemedTab .exportInk {
+	background-image: radial-gradient( circle farthest-side,rgba(96, 125, 139, 0.15),rgba(96, 125, 139, 0.15) 80%,rgba(96, 125, 139, 0) 100% );
+}
+
+.freebirdThemedDarkTab {
+	background-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedDarkTab .freebirdThemedDarkTabContent {
+	background-color: #FFF;
+}
+
+.freebirdThemedDarkTab .exportIndicator {
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.ds-hc-black .freebirdThemedDarkTab .exportIndicator {
+	background-color: white;
+	-ms-high-contrast-adjust: none;
+}
+
+.ds-hc-white .freebirdThemedDarkTab .exportIndicator {
+	background-color: black;
+	-ms-high-contrast-adjust: none;
+}
+
+.freebirdThemedDarkTab .exportTab {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.freebirdThemedDarkTab .exportTab.isSelected {
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.freebirdThemedDarkTab .exportTab.isFocused {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
+.freebirdThemedDarkTab .exportTabPageButton {
+	fill: rgba(255, 255, 255, 1);
+}
+
+.freebirdThemedDarkTab .exportInk {
+	background-image: radial-gradient( circle farthest-side,rgba(255, 255, 255, 0.15),rgba(255, 255, 255, 0.15) 80%,rgba(255, 255, 255, 0) 100% );
+}
+
+.freebirdThemedTextarea .exportFocusUnderline {
+	background-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedTextarea .exportHint {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdThemedTextarea.exportHasError .exportContent.exportUnderline, .freebirdThemedTextarea.exportHasError .exportContent.exportFocusUnderline {
+	background-color: rgb(207, 216, 220);
+}
+
+.quantumWizTextinputPaperinputInput:not([disabled]):focus ~ .quantumWizTextinputPaperinputFloatingLabel.exportLabel, .isFocused > .exportContent >.quantumWizTextinputPapertextareaFloatingLabel.exportLabel, .isFocused.modeDark > .exportContent >.quantumWizTextinputPapertextareaFloatingLabel.exportLabel {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdThemedTextareaDarkerDisabled.isDisabled .exportInput[disabled] {
+	color: rgba(0, 0, 0, .87);
+}
+
+.freebirdThemedInput .exportFocusUnderline {
+	background-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedInput .exportHint {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdThemedInput.exportHasError .exportContent.exportUnderline, .freebirdThemedInput.exportHasError .exportContent.exportFocusUnderline {
+	background-color: rgb(207, 216, 220);
+}
+
+.freebirdThemedInputDarkerDisabled.isDisabled .exportInput[disabled] {
+	color: rgba(0, 0, 0, .87);
+}
+
+.freebirdThemedToggle.isChecked .exportThumb {
+	border-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdThemedToggle.isChecked > .exportTrack {
+	border-color: rgb(207, 216, 220);
+}
+
+.freebirdThemedToggle.isCheckedNext > .exportInk, .freebirdThemedToggle.isFocused > .exportInk {
+	background-color: rgba(96, 125, 139, 0.15);
+}
+
+.freebirdThemedToggleSwitch {
+	border-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedToggleSwitch.isChecked {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdDarkIconOnThemedBackground {
+	display: none;
+}
+
+.ds-hc-white .freebirdDarkIconOnThemedBackground {
+	display: block;
+}
+
+.ds-hc-white .freebirdLightIconOnThemedBackground {
+	display: none;
+}
+
+.freebirdHeaderMast {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdHeaderMastWithOverlay {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdHeaderMastWithOverlay .freebirdMutedText {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.freebirdHeaderMastWithOverlay .freebirdFormTitleInput .exportLabel, .freebirdHeaderMastWithOverlay .exportInput {
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdHeaderMastWithOverlay .exportFocusUnderline {
+	background-color: rgba(255, 255, 255, 1);
+}
+
+html:not([style-scope]):not(.style-scope).freebird, body:not([style-scope]):not(.style-scope).freebirdLightBackground {
+	background-color: rgb(236, 239, 241);
+}
+
+.freebirdDisclaimerColor, .freebirdDisclaimerColor a {
+	color: rgb(100, 100, 100);
+}
+
+.exportSplash {
+	background-color: rgb(96, 125, 139);
+}
+
+.freebirdThemedDialog .exportTitleBarFullScreen, .freebirdThemedMobileDialog .exportTitleBarFullScreen, .freebirdThemedDialog .exportTitleBar, .freebirdThemedDialog .exportDialogClose, .freebirdThemedMobileDialog .exportDialogClose {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+	fill: rgba(255, 255, 255, 1);
+}
+
+.ds-hc-black .freebirdThemedDialog, .ds-hc-black .freebirdThemedMobileDialog {
+	border: 2px solid white;
+}
+
+.ds-hc-white .freebirdThemedDialog, .ds-hc-white .freebirdThemedMobileDialog {
+	border: 2px solid black;
+}
+
+.freebirdThemedDialog .exportDefaultDialogButton {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdThemedDialog.exportMobileDialog .exportDefaultDialogButton, .freebirdThemedMobileDialog.exportMobileDialog .exportDefaultDialogButton {
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdThemedDialog .exportDefaultDialogButton .exportInk {
+	background-image: radial-gradient( circle farthest-side,rgba(96, 125, 139, 0.15),rgba(96, 125, 139, 0.15) 80%,rgba(96, 125, 139, 0) 100% );
+}
+
+.freebirdThemedDialog .exportDefaultDialogButton.isDisabled {
+	color: rgba(96, 125, 139, 0.5);
+}
+
+.freebirdThemedDialog .exportDefaultDialogButton.isFocused .exportOverlay {
+	background-color: rgba(96, 125, 139, 0.15);
+}
+
+.freebirdThemedDialog .exportTabPageButton {
+	background-color: rgb(96, 125, 139);
+}
+
+.freebirdDarkOutline {
+	outline-style: solid;
+	outline-color: rgb(96, 125, 139);
+}
+
+.freebirdQuizResponse .isDisabled .freebirdDarkOutline {
+	outline-color: rgba(0, 0, 0, .54);
+}
+
+.freebirdLabeledControlDarkerDisabled.isDisabled .exportLabel {
+	color: rgba(0, 0, 0, .54);
+}
+
+.freebirdLabeledControlDarkerDisabled.isDisabled.isChecked .exportLabel {
+	color: rgba(0, 0, 0, .87);
+}
+
+.takeout .freebirdLabeledControlDarkerDisabled.isDisabled .exportLabel, .takeout .freebirdLabeledControlDarkerDisabled.isDisabled.isChecked .exportLabel {
+	color: black;
+}
+
+.freebirdLabeledControlDarkerDisabled.isDisabled .exportTooltip svg {
+	fill: rgba(0, 0, 0, .54);
+}
+
+.freebirdLabeledControlDarkerDisabled.isDisabled.isChecked .exportTooltip svg {
+	fill: rgba(0, 0, 0, .87);
+}
+
+.freebirdThemedText {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdSolidColor {
+	color: rgb(96, 125, 139);
+}
+
+.freebirdSolidBackground {
+	background-color: rgb(96, 125, 139);
+	color: rgba(255, 255, 255, 1);
+}
+
+.freebirdLightBackground {
+	background-color: rgb(236, 239, 241);
+}
+
+.freebirdUltraLightBackgrouand {
+	background-color: rgba(236, 239, 241, 0.25);
+}
+
+.freebirdAccentBackground {
+	background-color: rgb(178, 235, 242);
+	color: rgba(0, 0, 0, 1);
+}
+
+.freebirdLighterBackgroundHover:hover {
+	background-color: rgba(236, 239, 241, 0.5);
+}
+
+.freebirdSolidFill {
+	fill: rgb(96, 125, 139);
+	stroke: rgb(96, 125, 139);
+}
+
+.freebirdSolidBorder {
+	border-color: rgb(96, 125, 139);
+}
+
+.freebirdDecorativeFont {
+	font-family: 'Parisienne', cursive;
+	font-style: italic;
+}
+
+.freebirdPlayfulFont {
+	font-family: 'Shadows into Light', cursive;
+}
+
+.freebirdFormalFont {
+	font-family: 'Cormorant Garamond', serif;
+}
+

@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../../../src/components/TermsOfPDU/termsofpdu.css",
+	"sources": [
+		"../../../src/components/TermsOfPDU/termsofpdu.scss"
+	],
+	"sourcesContent": [
+		""
+	],
+	"mappings": "",
+	"names": []
+}

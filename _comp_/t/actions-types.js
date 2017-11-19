@@ -1,0 +1,17 @@
+export const APP_START_KICKED = 'APP_START_KICKED';
+export const APP_STARTED = 'APP_STARTED';
+export const APP_START_FAILED = 'APP_START_FAILED';
+export const APP_SET_VIEW = 'APP_SET_VIEW';
+export const APP_SET_IDLE_STATE = 'APP_SET_IDLE_STATE';
+export const APP_WAKEUP = 'APP_WAKEUP';
+export const PROFILE_UPDATE = 'PROFILE_UPDATE';
+export const PROFILE_UPLOAD = 'PROFILE_UPLOAD';
+export const PROFILE_LOAD = 'PROFILE_LOAD';
+export const PROFILE_LOAD_STARTED = 'PROFILE_LOAD_STARTED';
+export const PROFILE_LOAD_FAILED = 'PROFILE_LOAD_FAILED';
+export const PROFILE_LOADED = 'PROFILE_LOADED';
+export const PROFILE_CHANGED = 'PROFILE_CHANGED';
+export const IDLE_TIME_SET_DURATION = 'IDLE_TIME_SET_DURATION';
+export const IDLE_TIME_RESTART_TIMER = 'IDLE_TIME_RESTART_TIMER';
+export const IDLE_TIME_SET_IDLE_STATE = 'IDLE_TIME_SET_IDLE_STATE';
+//# sourceMappingURL=E:/.prj/lo/BSWClientApp/dist/src/core/actions/actions-types.js.map

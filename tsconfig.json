@@ -1,0 +1,48 @@
+{
+	"compileOnSave": false,
+	"buildOnSave": false,
+	"compilerOptions": {
+
+		"allowSyntheticDefaultImports": true,
+		"alwaysStrict": true,
+		"forceConsistentCasingInFileNames": false,
+		"baseUrl": "./",
+		"mapRoot": "./dist",
+		"target": "es6",
+		"jsx": "react", // process JSX
+		"lib": [
+			"es6",
+			"dom",
+			"es2015",
+			"es2017.object",
+			"es7"
+		],
+		"module": "es6",
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"noImplicitAny": false,
+		"removeComments": true,
+		"sourceMap": true,
+		//  "inlineSourceMap": true,
+		"noEmitHelpers": false,
+		"typeRoots": [
+			"node_modules/@types" //,
+			//		"src"
+		],
+		"plugins": [
+			{
+				"name": "typescript-styled-plugin"
+			}
+		]
+	},
+	"awesomeTypescriptLoaderOptions": {
+		"useBabel": true,
+		"useCache": false,
+		"emitRequireType": true
+	},
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
+}

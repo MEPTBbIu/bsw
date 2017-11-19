@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../../../src/components/Gratters/gratters.css",
+	"sources": [
+		"../../../src/components/Gratters/gratters.scss"
+	],
+	"sourcesContent": [
+		""
+	],
+	"mappings": "",
+	"names": []
+}

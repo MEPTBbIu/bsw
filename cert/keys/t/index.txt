@@ -1,0 +1,2 @@
+V	271117100712Z		01	unknown	/C=RU/ST=Moscow/L=Moscow/O=BLACK STAR RUSSIA/OU=BLACK STAR WEAR/CN=xo.bsw.sale/name=xo.bsw.sale/emailAddress=info@blackstarwear.ru
+V	271117104949Z		02	unknown	/C=RU/ST=Moscow/L=Moscow/O=Black Star Russia/OU=Black Star Wear/CN=xo.bsw.sale-server

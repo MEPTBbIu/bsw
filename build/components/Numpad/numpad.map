@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../../../src/components/Numpad/numpad.css",
+	"sources": [
+		"../../../src/components/Numpad/numpad.scss"
+	],
+	"sourcesContent": [
+		".numpad-container {\n\n\tdisplay:flex;\n\tflex-direction: row;\n\tflex-flow: row wrap;\n\tflex: 0 0 auto;\n\talign-content:space-around;\n\talign-items: center;\n\twidth: 150px;\n}\n\n\n.numpab-number-button{\n\twidth: 40px;\n\theight: 40px;\n\tmargin: 5px;\n\tbox-sizing: border-box;\n\tborder: rgba(0, 0, 0, 0.3) solid 1px;\r\n}"
+	],
+	"mappings": ";AAAA,AAAA,iBAAiB,CAAC;EAEjB,OAAO,EAAC,IAAK;EACb,cAAc,EAAE,GAAI;EACpB,SAAS,EAAE,QAAS;EACpB,IAAI,EAAE,QAAS;EACf,aAAa,EAAC,YAAa;EAC3B,WAAW,EAAE,MAAO;EACpB,KAAK,EAAE,KAAM;CACb;;;AAGD,AAAA,qBAAqB,CAAA;EACpB,KAAK,EAAE,IAAK;EACZ,MAAM,EAAE,IAAK;EACb,MAAM,EAAE,GAAI;EACZ,UAAU,EAAE,UAAW;EACvB,MAAM,EAAE,kBAAI,CAAe,KAAK,CAAC,GAAG;CACpC",
+	"names": []
+}

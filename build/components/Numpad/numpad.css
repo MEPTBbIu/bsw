@@ -1,0 +1,21 @@
+/* line 1, E:/.prj/lo/BSWClientApp/src/components/Numpad/numpad.scss */
+.numpad-container {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  flex: 0 0 auto;
+  align-content: space-around;
+  align-items: center;
+  width: 150px;
+}
+
+/* line 13, E:/.prj/lo/BSWClientApp/src/components/Numpad/numpad.scss */
+.numpab-number-button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  box-sizing: border-box;
+  border: rgba(0, 0, 0, 0.3) solid 1px;
+}
+
+/*# sourceMappingURL=../../../build/components/Numpad/numpad.map */

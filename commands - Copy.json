@@ -1,0 +1,9 @@
+{
+  "commands": {
+    "build_watch": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c build_watch.cmd"
+    }
+  }
+}

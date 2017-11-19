@@ -1,0 +1,1 @@
+cmd /C %~dp0node_modules\.bin\webpack-dev-server --debug --watch --allowed-hosts * --watch-aggregate-timeout 100 --colors --content-base distr --host 192.168.1.11 --port 8080 --config webpack.config.js %*

@@ -1,0 +1,232 @@
+
+
+
+.bs-promo.root
+{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	-ms-flex-line-pack: center;
+	    align-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-flex: 0;
+	    -ms-flex: 0 0 auto;
+	        flex: 0 0 auto;
+	background-color: black;
+	height: 100%;
+	width: 100%;
+
+	.logo
+	{
+		margin: 8.8% auto 0 auto;
+		width: 25.2%;
+		display:  -webkit-box;
+		display:  -ms-flexbox;
+		display:  flex;
+		-webkit-box-orient:  vertical;
+		-webkit-box-direction:  normal;
+		    -ms-flex-direction:  column;
+		        flex-direction:  column;
+		-webkit-box-flex:  0;
+		    -ms-flex:  0 0 auto;
+		        flex:  0 0 auto;
+		-webkit-box-align: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+		.svg-container{
+			position:  absolute;
+			z-index:  3;
+			margin:  23px 0 0 0;
+			padding:  0;
+			border:  none;
+		//	display:  -webkit-inline-box;
+		//	display:  -ms-inline-flexbox;
+		//	display:  inline-flex;
+		display: none;
+			-webkit-box-orient:  vertical;
+			-webkit-box-direction:  normal;
+			    -ms-flex-direction:  column;
+			        flex-direction:  column;
+			-webkit-box-align:  center;
+			    -ms-flex-align:  center;
+			        align-items:  center;
+			-webkit-box-pack:  center;
+			    -ms-flex-pack:  center;
+			        justify-content:  center;
+			-webkit-box-sizing:  border-box;
+					box-sizing:  border-box;
+
+			svg {
+
+				fill: #000000;
+				stop-color: #ffffff;
+				stroke-width: 1px;
+				stroke: #ffffff;
+			}
+		}
+
+	}
+
+	.mid-text
+	{
+		margin: 11.72% auto 0 auto;
+		width: 76%;
+		height: auto;
+	}
+
+	.bottom-text
+	{
+		margin: auto auto 10.30% auto;
+		width: 66.27%;
+		height: auto;
+	}
+}
+
+.bs-promo.root img
+{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+.press-to-start
+{
+	position: absolute;
+	bottom: 18.5vh;
+	width: 100%;
+	text-align: center;
+	/*	.text
+	{
+		color: white;
+		font-family: Roboto;
+		font-size: 1.9vh;
+		text-transform: uppercase;
+		opacity: 1;
+		-webkit-transition: all 1s ease;
+		-o-transition: all 1s ease;
+		-moz-transition: all 1s ease;
+		transition: all 1s ease;
+		text-shadow: 0 0 80px red,0 0 30px FireBrick,0 0 6px DarkRed;
+		color: red;
+	}*/
+}
+
+#error:hover
+{
+	text-shadow: 0 0 200px #ffffff,0 0 80px #008000,0 0 6px #0000ff;
+}
+#p2s
+{
+	color: white;
+	font-family: Roboto;
+	font-size: 1.9vh;
+	text-transform: uppercase;
+	opacity: 1;
+	-webkit-transition: all 1s ease;
+	transition: all 1s ease;
+	//text-shadow: 0 0 80px red,0 0 30px FireBrick,0 0 6px DarkRed;
+	//color: red;
+	text-shadow: 0 0 80px #fffff2, 0 0 30px #f2f2f2, 0 0 6px #ffde94;
+	color: #f3f3f3;
+}
+
+#p2s:hover
+{
+	/*text-shadow: 0 0 100px red,0 0 40px FireBrick,0 0 8px DarkRed;*/
+
+}
+
+#error
+{
+	color: #fff;
+	text-shadow: 0 0 80px #ffffff,0 0 30px #008000,0 0 6px #0000ff;
+}
+
+#p2s
+{
+	-webkit-animation: upper 11s linear infinite;
+	        animation: upper 11s linear infinite;
+}
+
+#p2s span
+{
+	-webkit-animation: lower 10s linear infinite;
+	        animation: lower 10s linear infinite;
+}
+
+#p2s span
+{
+	text-shadow: none;
+	opacity: .4;
+}
+
+@-webkit-keyframes upper
+{
+	0%,19.999%,22%,62.999%,64%, 64.999%,70%,100%
+	{
+		opacity: .99;
+		text-shadow: 0 0 80px #ffffff,0 0 30px #008000,0 0 6px #0000ff;
+	}
+
+	20%,21.999%,63%,63.999%,65%,69.999%
+	{
+		opacity: 0.4;
+		text-shadow: none;
+	}
+}
+
+@keyframes upper
+{
+	0%,19.999%,22%,62.999%,64%, 64.999%,70%,100%
+	{
+		opacity: .99;
+		text-shadow: 0 0 80px #ffffff,0 0 30px #008000,0 0 6px #0000ff;
+	}
+
+	20%,21.999%,63%,63.999%,65%,69.999%
+	{
+		opacity: 0.4;
+		text-shadow: none;
+	}
+}
+
+@-webkit-keyframes lower
+{
+	0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100%
+	{
+		opacity: 0.99;
+		text-shadow: 0 0 80px red,0 0 30px FireBrick,0 0 6px DarkRed;
+	}
+
+	19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999%
+	{
+		opacity: 0.4;
+		text-shadow: none;
+	}
+}
+
+@keyframes lower
+{
+	0%,12%,18.999%,23%,31.999%,37%,44.999%,46%,49.999%,51%,58.999%,61%,68.999%,71%,85.999%,96%,100%
+	{
+		opacity: 0.99;
+		text-shadow: 0 0 80px red,0 0 30px FireBrick,0 0 6px DarkRed;
+	}
+
+	19%,22.99%,32%,36.999%,45%,45.999%,50%,50.99%,59%,60.999%,69%,70.999%,86%,95.999%
+	{
+		opacity: 0.4;
+		text-shadow: none;
+	}
+}
+
+
+

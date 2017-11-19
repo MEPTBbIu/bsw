@@ -1,0 +1,780 @@
+area,
+button,
+[role="button"],
+input,
+label,
+select,
+summary,
+textarea {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+
+
+/*html {
+///*	font-family: Roboto;
+     1 */
+
+/*	line-height: 1.15;
+     2 */
+
+/*	-ms-text-size-adjust: 100%;
+    /* 3 */
+
+/*	-webkit-text-size-adjust: 100%;
+    /* 3 */
+
+/*}*/
+
+/*body {
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    width: 100%;
+    height: 100%;
+    background-color: #f1f1f1;
+    text-transform: uppercase;
+    line-height: 1.444;
+}*/
+
+html,
+body {
+    display: block;
+    height: 100%;
+	width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+	/*min-height: 1024px;*/
+}
+
+/**/
+
+.bs-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.bs-form {
+    font-family: PTSans Bold, PTSans Regular, Roboto;
+    /*font-size: 16pt;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;*/
+    /*	display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-flow: wrap;
+        flex-flow: wrap;
+        place-content: center space-around;
+        flex: 0 0 auto;*/
+}
+
+.bs-field-container {
+    padding: 10px 10px 0px 10px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    /* align-items: stretch; */
+    /* align-content: space-between; */
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+
+.bs-form .row {
+    padding-top: 5ch;
+    border: none;
+    -ms-flex-basis: 100%;
+    -o-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+}
+
+.bs-form .col {
+    -ms-flex-basis: 100%;
+    -o-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+.bs-form .col-2 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -ms-flex-basis: 50%;
+    -o-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    */
+    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -ms-flex: 1 1 auto;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    -ms-flex-align: stretch;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+}
+
+.bs-form .col-3 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-basis: 33.3333%;
+    -o-flex-basis: 33.3333%;
+    -ms-flex-preferred-size: 33.3333%;
+    flex-basis: 33.3333%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+.bs-form-item {
+    border-top: 1px solid #dbdbdb;
+    padding: 17px 20px;
+}
+
+
+.bs-field > span { color: #999999; }
+
+.bs-field input[type=text]::-webkit-input-placeholder {
+    font-family: 'PTSans Bold', 'PTSans Regular', 'Roboto';
+    font-size: 36pt;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    color: #999999;
+}
+
+.bs-field input[type=text]:-ms-input-placeholder {
+    font-family: 'PTSans Bold', 'PTSans Regular', 'Roboto';
+    font-size: 36pt;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    color: #999999;
+}
+
+.bs-field input[type=text]::placeholder {
+    font-family: 'PTSans Bold', 'PTSans Regular', 'Roboto';
+    font-size: 36pt;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    color: #999999;
+}
+
+.bs-field input[type=text].width-3-dig { width: 3.8ch; }
+
+.bs-field input[type=text].width-2-dig { width: 2.4ch; }
+
+.bs-field input[type=text] { padding: 2px 2px; }
+
+.bs-code-field-validation-info {
+
+    font-family: PTSans Regular, sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 0 20px;
+
+    text-align: center;
+}
+
+.bs-field-validation-info.error { color: #f66c62; }
+
+.bs-field-validation-info.success { color: #6abe6e; }
+
+/* ReSharper disable  UnknownCssVendorExtension */
+
+/**
+ * Correct the text style of placeholders in Chrome, Edge, and Safari.
+ */
+
+::-webkit-input-placeholder {
+    color: inherit;
+    -ms-opacity: 0.54;
+    opacity: 0.54;
+}
+
+/* Links
+   ========================================================================== */
+
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+
+a {
+    background-color: transparent;
+    /* 1 */
+    -webkit-text-decoration-skip: objects;
+    /* 2 */
+}
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+
+a:active,
+a:hover { outline-width: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+    border-bottom: none;
+    /* 1 */
+    text-decoration: underline;
+    /* 2 */
+    text-decoration: underline dotted;
+    /* 2 */
+}
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+
+b,
+strong { font-weight: inherit; }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong { font-weight: bolder; }
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+
+dfn { font-style: italic; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+
+mark {
+    background-color: #ff0;
+    color: #000;
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small { font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub { bottom: -0.25em; }
+
+sup { top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+
+img { border-style: none; }
+
+/**
+ * Hide the overflow in IE.
+ */
+
+svg:not(:root) { overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, monospace;
+    /* 1 */
+    font-size: 1em;
+    /* 2 */
+}
+
+/**
+ * Add the correct margin in IE 8.
+ */
+
+figure { margin: 1em 40px; }
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+    box-sizing: content-box;
+    /* 1 */
+    height: 0;
+    /* 1 */
+    overflow: visible;
+    /* 2 */
+}
+
+input[type=date]
+{
+	-webkit-appearance: none;
+	-webkit-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	background-color: #f2f2f2;
+	border: 2px solid #f2f2f2;
+	padding: 16px 22px;
+	/*height: 35px;
+    margin: 0 auto;
+    width: 100%;*/
+	color: #inherit;
+	font-family: inherit;
+	font-size: inherit;
+	text-transform: inherit;
+	font-weight: inherit;
+	color: inherit; /*background-color: lighten(#2f2f2f,40%);border-radius: 3px;border: 0;padding: 0 3px;*/
+	outline: none;
+}
+
+	/*input[type=date]::-webkit-datetime-edit-month-field,
+	input[type=date]::-webkit-datetime-edit-day-field,
+	input[type=date]::-webkit-datetime-edit-year-field
+	{
+		color: rgba(0, 0, 0, 0);
+		display: none;
+	}*/
+
+
+	input[type=date][value=""]::-webkit-datetime-edit-month-field,
+	input[type=date][value=""]::-webkit-datetime-edit-day-field,
+	input[type=date][value=""]::-webkit-datetime-edit-year-field
+	{
+		/*color: rgba(0, 0, 0, 0);*/
+		display: none;
+	}
+
+	input[type=date]:active::-webkit-datetime-edit-month-field,
+	input[type=date]:active::-webkit-datetime-edit-day-field,
+	input[type=date]:active::-webkit-datetime-edit-year-field,
+	input[type=date]:focus::-webkit-datetime-edit-month-field,
+	input[type=date]:focus::-webkit-datetime-edit-day-field,
+	input[type=date]:focus::-webkit-datetime-edit-year-field
+	{
+		color: initial;/**/
+		display: initial;
+		
+	}
+
+	
+
+input[type=date]::-webkit-inner-spin-button {
+    display: none;
+    padding: 0;
+    margin: 0;
+    width: 0;
+    height: 0;
+    border: 0;
+}
+
+/*	input[type=date]::-webkit-calendar-picker-indicator
+	{
+		display: none;
+		padding: 0;
+		margin: 0;
+		width: 0;
+		height: 0;
+		border: 0;
+	}*/
+
+input[type=date]:hover {
+    /*	background-color: #e5e5e5;
+    border: 2px solid #e5e5e5;*/
+    cursor: pointer;
+}
+
+input[type=date]:active, input[type=date]:focus {
+    outline: none;
+    /*	border: 2px solid #e5e5e5;*/
+    border: none;
+
+    /*background-color: transparent;
+    color: blue;*/
+}
+
+
+.bs-field {
+    font-style: normal;
+    font-weight: 500;
+    /* text-align: center; */
+    -ms-flex-flow: column;
+    /* flex-flow: column; */
+    /* place-content: center; */
+    font-size: 16px;
+    line-height: 24px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    background-color: transparent;
+    font-family: Roboto, sans-serif;
+    -webkit-transition: height .2s cubic-bezier(.23, 1, .32, 1) 0ms;
+    transition: height .2s cubic-bezier(.23, 1, .32, 1) 0ms;
+    cursor: auto;
+    padding: 0 5px;
+    margin: 6px 0 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    /*	font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    flex-flow: column;
+    place-content: center;
+    font-size: 16px;
+    line-height: 24px;
+    width: 256px;
+height: 72px;
+    display: inline-block;
+    position: relative;
+    background-color: transparent;
+    font-family: Roboto, sans-serif;
+    transition: height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    cursor: auto;
+    padding: 0px 5px;
+    margin: 6px 0 0 0;*/
+}
+
+/*.bs-field input[type=text]
+{
+    padding: 0px;
+    position: relative;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.87);
+    cursor: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    opacity: 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    box-sizing: border-box;
+    margin-top: 14px;
+    text-align: center;
+    text-decoration: none;
+}*/
+
+.bs-field input[type=text] {
+    font: inherit;
+    -webkit-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    background-color: #f2f2f2;
+    border: none;
+    margin: 20px 0 0 0;
+    padding: 6px 6px;
+}
+
+.bs-field input[type=text]::-webkit-input-placeholder,
+.bs-field input[type=text]:-ms-input-placeholder,
+.bs-field input[type=text]::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-weight: 500;
+}
+
+.bs-field input[type=text]::-webkit-input-placeholder,
+.bs-field input[type=text]:-ms-input-placeholder,
+.bs-field input[type=text]::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-weight: 500;
+}
+
+.bs-field input[type=text]:hover {
+    /*	background-color: #e5e5e5;*/
+    border: none;
+}
+
+.bs-field input[type=text]:focus {
+    outline: none;
+    border: none;
+    /*	background-color: #fff;*/
+}
+
+.bs-field input[type=text] + .label {
+    display: inline-block;
+    margin: 22px 0 0;
+    padding: 6px 0;
+    position: absolute;
+    line-height: 22px;
+    z-index: 1;
+    -webkit-transform: scale(1) translate(0);
+    transform: scale(1) translate(0);
+    -webkit-transform-origin: left top 0;
+    transform-origin: left top 0;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    color: rgba(0, 0, 0, .3);
+}
+
+.bs-field input[type=text]:focus + .label {
+    width: auto;
+    -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    -webkit-transform: scale(0.75) translate(0px, -28px);
+    transform: scale(0.75) translate(0px, -28px);
+    color: rgba(0, 188, 212, 1);
+}
+
+.bs-field > input[type=text]::-webkit-input-placeholder,
+.bs-field > input[type=text]:-ms-input-placeholder,
+.bs-field > input[type=text]::-webkit-input-placeholder {
+
+    font: inherit;
+    /*	font-size: inherit;
+        font-style: inherit;
+        position: absolute;*/
+    opacity: 0;
+    color: rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    visibility: collapse;
+}
+
+.bs-field > input[type=text]::-webkit-input-placeholder,
+.bs-field > input[type=text]:-ms-input-placeholder,
+.bs-field > input[type=text]::placeholder {
+
+    font: inherit;
+    /*	font-size: inherit;
+        font-style: inherit;
+        position: absolute;*/
+    opacity: 0;
+    color: rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    visibility: collapse;
+}
+
+.bs-field > input[type=text]:focus::-webkit-input-placeholder,
+.bs-field > input[type=text]:focus:-ms-input-placeholder,
+.bs-field > input[type=text]:focus::-webkit-input-placeholder {
+    opacity: 1;
+    visibility: visible;
+}
+
+.bs-field > input[type=text]:focus::-webkit-input-placeholder,
+.bs-field > input[type=text]:focus:-ms-input-placeholder,
+.bs-field > input[type=text]:focus::placeholder {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.bs-field input[type=text] ~ hr.bs-input-focus-line { /*active*/
+    border-top: none rgb(0, 188, 212);
+    border-left: none rgb(0, 188, 212);
+    border-right: none rgb(0, 188, 212);
+    border-bottom: 2px solid rgb(0, 188, 212);
+
+    -webkit-box-sizing: content-box;
+
+    box-sizing: content-box;
+    margin: 0px;
+
+    width: 100%;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+}
+
+.bs-field input[type=text]:focus ~ hr.bs-input-focus-line { /*active*/
+    outline: none;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.bs-field hr.bs-input-underline {
+    border-top: none rgb(224, 224, 224);
+    border-left: none rgb(224, 224, 224);
+    border-right: none rgb(224, 224, 224);
+    border-bottom: 2px solid rgb(224, 224, 224);
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 100%;
+    margin: -2px 0px;
+}
+
+
+
+.app-container {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+
+.floatColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.floatRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bsPaper {
+    display: flex;
+    /*justifyContent: "center",*/
+    padding-top: 28px;
+    flex-direction: column;
+    /*height: "100%"*/
+    align-items: center;
+}
+
+.bs-column {
+	
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-webkit-box-flex: 1;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-items: flex-start;
+	height: 100%;
+}
+
+.bs-row-2-col
+{	display: flex;
+	flex-flow: row nowrap;
+	flex: 1 1 50%;
+	align-items: center;
+	align-content: space-around;
+	justify-items: center;
+	width: 100%;
+}

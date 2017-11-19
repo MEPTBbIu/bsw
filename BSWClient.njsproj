@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{225d2305-37eb-44d5-9e11-201352339b4d}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>npm</StartupFile>
+    <WorkingDirectory>E:\.prj\lo\BSWClientApp\dist</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodeExePath>C:\Program Files\nodejs\node.exe</NodeExePath>
+    <ScriptArguments>run task-build</ScriptArguments>
+    <StartWebBrowser>True</StartWebBrowser>
+    <LaunchUrl>http://xo/bsw</LaunchUrl>
+    <Environment>NODE_ENV=development</Environment>
+    <DebuggerPort>9992</DebuggerPort>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include=".editorconfig" />
+    <Content Include=".eslintrc" />
+    <Content Include=".stylelintrc" />
+    <Content Include="app.json" />
+    <Content Include="commands - Copy.json" />
+    <Content Include="install_webpack_modules.cmd" />
+    <Content Include="package.json" />
+    <Content Include="src\assets\css\custom.css" />
+    <Content Include="src\assets\css\freebird-ext.css" />
+    <Content Include="src\assets\css\freebird.css" />
+    <Content Include="src\assets\css\skeleton.css" />
+    <Content Include="src\components\form-layout.tsx" />
+    <Content Include="src\components\Gratters\gratters.scss" />
+    <Content Include="src\components\LoyaltyRegPage\loyalty-reg-page.scss" />
+    <Content Include="src\components\Numpad\numpad.scss" />
+    <Content Include="src\components\Profile\profile.scss" />
+    <Content Include="src\components\PromoPage\promopage.scss" />
+    <Content Include="src\components\Profile\Phone\phone.tsx" />
+    <Content Include="src\components\RegCode\regcode.css" />
+    <Content Include="src\components\StepByStep\stepbystep.scss" />
+    <Content Include="src\components\TermsOfPDU\termsofpdu.scss" />
+    <Content Include="src\components\textField.tsx" />
+    <Content Include="src\core\fsa-profile.ts" />
+    <Content Include="src\declare\eula.html" />
+    <Content Include="src\web.config" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tslint.json" />
+    <Compile Include="postcss.config.js" />
+    <Compile Include="src\core\store\promise-middleware.ts" />
+    <Compile Include="webpack-dev-server.config.js" />
+    <Compile Include="webpack.config.js" />
+    <Compile Include="webpack.externals.js" />
+    <Content Include="src\index.html" />
+    <Content Include="src\index.css" />
+    <Content Include="src\manifest.json" />
+    <Content Include="build_watch.cmd" />
+    <Content Include="wp-dev-server.cmd" />
+    <TypeScriptCompile Include="src\augmentations.d.ts" />
+    <TypeScriptCompile Include="src\common\wrapAsyncWorker.ts" />
+    <TypeScriptCompile Include="src\components\app.tsx" />
+    <TypeScriptCompile Include="src\components\Gratters\gratters.tsx" />
+    <TypeScriptCompile Include="src\components\Gratters\index.ts" />
+    <TypeScriptCompile Include="src\components\busybox.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\components\LoyaltyRegPage\index.ts" />
+    <TypeScriptCompile Include="src\components\LoyaltyRegPage\loyalty-reg-page.tsx" />
+    <TypeScriptCompile Include="src\components\LoyaltyRegPage\reg-steps.tsx" />
+    <TypeScriptCompile Include="src\components\Numpad\numpad.tsx" />
+    <TypeScriptCompile Include="src\components\Profile\index.ts" />
+    <TypeScriptCompile Include="src\components\Profile\Phone\index.ts" />
+    <TypeScriptCompile Include="src\components\Profile\profile-form.tsx" />
+    <TypeScriptCompile Include="src\components\PromoPage\index.ts" />
+    <TypeScriptCompile Include="src\components\PromoPage\promopage.tsx" />
+    <TypeScriptCompile Include="src\components\RegCode\index.d.ts" />
+    <TypeScriptCompile Include="src\components\RegCode\qr-code\qr-code.tsx" />
+    <TypeScriptCompile Include="src\components\RegCode\regcode.tsx" />
+    <TypeScriptCompile Include="src\components\StepByStep\index.ts" />
+    <TypeScriptCompile Include="src\components\StepByStep\stepbystep.tsx" />
+    <TypeScriptCompile Include="src\components\TermsOfPDU\index.ts" />
+    <TypeScriptCompile Include="src\components\TermsOfPDU\termsofpdu.tsx" />
+    <TypeScriptCompile Include="src\core\actions\fsa-profile.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\core\actions\idletime-actions.ts" />
+    <TypeScriptCompile Include="src\core\fsa.ts" />
+    <TypeScriptCompile Include="src\core\reducers\idletime-reducer.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\core\store\index.ts" />
+    <TypeScriptCompile Include="src\core\store\store.ts" />
+    <TypeScriptCompile Include="src\declare\react-qr-reader\index.d.ts" />
+    <TypeScriptCompile Include="src\globals.d.ts" />
+    <TypeScriptCompile Include="src\common\ajax.ts" />
+    <TypeScriptCompile Include="src\common\api.ts" />
+    <Content Include="src\components\app.css" />
+    <TypeScriptCompile Include="src\components\Profile\Phone\normalizePhone.ts" />
+    <TypeScriptCompile Include="src\core\data\profile-data.ts" />
+    <Content Include="src\assets\css\font-awesome.css" />
+    <Content Include="src\assets\css\loader-style.css" />
+    <Content Include="src\assets\css\normalize.css" />
+    <Content Include="src\assets\fonts\font-awesome.css" />
+    <Content Include="src\assets\fonts\font-awesome.min.css" />
+    <Content Include="src\assets\fonts\fonts.css" />
+    <Content Include="src\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="src\assets\icon\apple-touch-icon.png" />
+    <Content Include="src\assets\icon\startup-ipad-landscape.png" />
+    <Content Include="src\assets\icon\startup-ipad-portrait.png" />
+    <Content Include="src\assets\icon\startup-iphone.png" />
+    <Content Include="src\assets\icon\favicon.ico" />
+    <Content Include="src\assets\icon\icons8-female-user-2.svg" />
+    <Content Include="src\assets\icon\icons8-female-user-filled.svg" />
+    <Content Include="src\assets\icon\icons8-female-user.svg" />
+    <Content Include="src\assets\icon\icons8-user-male-2.svg" />
+    <Content Include="src\assets\icon\icons8-user-male-filled.svg" />
+    <Content Include="src\assets\icon\icons8-user-male.svg" />
+    <Content Include="src\assets\icon\woman.svg" />
+    <Content Include="src\assets\images\balance.png" />
+    <Content Include="src\assets\images\big-black-logo.png" />
+    <Content Include="src\assets\images\bsw-logo.png" />
+    <Content Include="src\assets\images\logo.png" />
+    <Content Include="src\assets\images\reactivate-128.png" />
+    <Content Include="src\assets\images\reactivate-icon.png" />
+    <Content Include="src\assets\images\reg.png" />
+    <Content Include="src\assets\images\slogan-bottom.png" />
+    <Content Include="src\assets\images\slogan-mid.png" />
+    <Content Include="src\assets\images\76.jpg" />
+    <Content Include="src\assets\images\logo.jpg" />
+    <Content Include="src\assets\images\reactivate.jpg" />
+    <Content Include="src\assets\images\reg-loya.jpg" />
+    <Content Include="src\assets\images\bottom-tear.svg" />
+    <Content Include="src\assets\icon\man.svg" />
+    <Content Include="src\assets\images\woman.svg" />
+    <Content Include="src\components\PromoPage\test-grid.html" />
+    <TypeScriptCompile Include="src\core\actions\actions-types.ts" />
+    <TypeScriptCompile Include="src\core\actions\app-actions.ts" />
+    <TypeScriptCompile Include="src\core\actions\index.ts" />
+    <TypeScriptCompile Include="src\core\actions\profile-actions.ts" />
+    <TypeScriptCompile Include="src\core\reducers\appReducer.ts" />
+    <TypeScriptCompile Include="src\core\reducers\index.ts" />
+    <TypeScriptCompile Include="src\core\reducers\initialState.ts" />
+    <TypeScriptCompile Include="src\core\reducers\profileReducer.ts" />
+    <TypeScriptCompile Include="src\core\store\configureStore.dev.ts" />
+    <TypeScriptCompile Include="src\core\store\configureStore.prod.ts" />
+    <TypeScriptCompile Include="src\core\store\configureStore.ts" />
+    <TypeScriptCompile Include="src\index.tsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src" />
+    <Folder Include="src\assets" />
+    <Folder Include="src\assets\css" />
+    <Folder Include="src\assets\fonts" />
+    <Folder Include="src\assets\icon" />
+    <Folder Include="src\assets\images" />
+    <Folder Include="src\assets\scss" />
+    <Folder Include="src\assets\scss\mdc-typography" />
+    <Folder Include="src\assets\scss\textfield" />
+    <Folder Include="src\assets\scss\typography" />
+    <Folder Include="src\common" />
+    <Folder Include="src\components" />
+    <Folder Include="src\components\Gratters\" />
+    <Folder Include="src\components\LoyaltyRegPage\" />
+    <Folder Include="src\components\Numpad\" />
+    <Folder Include="src\components\RegCode\" />
+    <Folder Include="src\components\Profile\Phone\" />
+    <Folder Include="src\components\Profile" />
+    <Folder Include="src\components\PromoPage" />
+    <Folder Include="src\components\RegCode\qr-code\" />
+    <Folder Include="src\components\StepByStep\" />
+    <Folder Include="src\components\TermsOfPDU\" />
+    <Folder Include="src\core" />
+    <Folder Include="src\core\actions" />
+    <Folder Include="src\core\data\" />
+    <Folder Include="src\core\reducers" />
+    <Folder Include="src\core\store" />
+    <Folder Include="src\declare\" />
+    <Folder Include="src\declare\react-qr-reader\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

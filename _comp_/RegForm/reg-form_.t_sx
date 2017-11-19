@@ -1,0 +1,464 @@
+import './mdc-radio.scss';
+import './reg-form.scss';
+import './checkbox.scss';
+import './Stepper.css';
+
+import * as React from 'react';
+import * as Redux from 'redux';
+import * as areIntlLocalesSupported from 'intl-locales-supported';
+
+import {
+	Field,
+	Form,
+	FormErrors,
+	FormSection,
+	InjectedFormProps,
+	SubmitHandler,
+	WrappedFieldProps,
+	reduxForm
+} from 'redux-form';
+import { ICustomerProfile, ICustomerProfileState, IPhoneRegion } from '../core/ProfileData';
+import { RootState as IRootState, RootState } from '../core/reducers/initialState';
+import {
+	MapDispatchToProps,
+	MapDispatchToPropsFunction,
+	MapStateToProps,
+	connect
+} from 'react-redux';
+import { SFC, StatelessComponent } from 'react';
+import {
+	Step,
+	StepContent,
+	StepLabel,
+	Stepper
+} from 'material-ui/Stepper';
+
+import { ActionSearch } from 'material-ui/svg-icons';
+import Api from '../common/Api';
+import  DatePicker  from 'material-ui/DatePicker';
+import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { ProfileActions } from '../core/actions/profile';
+import { RootAction } from '../core/actions';
+import SelectionWithForm from './SelectionWithForm';
+import TextField from 'material-ui/TextField';
+import { deepOrange500 } from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import normalizePhone from './normalizePhone';
+
+let DateTimeFormat = undefined;
+let IntlPolyfill = undefined;
+
+if (areIntlLocalesSupported(['ru', 'ru-RU'])) {
+	 DateTimeFormat = global.Intl.DateTimeFormat;
+} else {
+	 IntlPolyfill = require('intl');
+	 DateTimeFormat = IntlPolyfill.DateTimeFormat;
+	require('intl/locale-data/jsonp/ru');
+	require('intl/locale-data/jsonp/ru-RU');
+}
+
+
+
+//import "./../assets/scss/textfield/mdc-textfield.scss"
+
+
+const styles = {
+	container: {
+		textAlign: 'center',
+		height: "100%",
+	}
+};
+
+const muiTheme = getMuiTheme({
+	palette: {
+		accent1Color: deepOrange500,
+	},
+});
+
+
+interface IRegFormState extends ICustomerProfileState {
+	step?: number;
+	smsIsSended?: boolean;
+	sendedSmsCode?: string;
+	smsCode?: string;
+	showDebug?: boolean;
+}
+
+interface IRegFormProps {
+	dispatch?: Redux.Dispatch<RootState>;
+
+//	onChange?:()=>void
+	onSubmit?: SubmitHandler;
+	loadProfile?: (regCode: string, dispatch: Redux.Dispatch<RootState>) => React.Promise<ICustomerProfile>;
+}
+
+type RegFormProps = IRegFormProps & InjectedFormProps<IRegFormState, IRegFormProps>;
+
+const SelectWithFormField = ({ input: { onChange, value } }: WrappedFieldProps) =>
+	<SelectionWithForm onChange={onChange} value={value}/>;
+
+interface ITextInputProps extends WrappedFieldProps {
+	hintText?: string;
+	errorText?: string;
+	floatingLabelText?: string;
+	label?: string;
+	type?:string;
+	 hasBox?:boolean;
+
+}
+
+const BCheckBox = ({ input, meta, label }) => {
+	return (
+		<section className="bs-field-container checkbox-hero">
+			<div className="mdc-checkbox">
+				<input {...input} type="checkbox" className="mdc-checkbox__native-control"/>
+				<div className="mdc-checkbox__background">
+					<svg className="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+						<path className="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59">
+						</path>
+					</svg>
+					<div className="mdc-checkbox__mixedmark"></div>
+				</div>
+			</div>
+			<label htmlFor={"cb-" + input.name}>{label}</label>
+		</section>
+	);
+
+}
+
+const BTextInput =
+	({ input, meta, label, floatingLabelText, hintText, errorText, type, hasBox, ...custom }: ITextInputProps) => {
+
+		const isEmpty = (input.value === "" || input.value === null);
+		const tfClass = (meta.invalid ? " mdc-textfield--invalid" : " mdc-textfield--valid") +
+			(meta.active ? " mdc-textfield--focused" : "") +
+			(hasBox ? " mdc-textfield--box" : " mdc-textfield--box transparent");
+		const labelClasses = !isEmpty || meta.active ? "mdc-textfield__label--float-above" : "";
+		const isRequired = "*";
+		const showErrorText = !meta.valid && typeof errorText !== 'undefined';
+		const showHintText = typeof hintText !== 'undefined';
+		const message = showErrorText || showHintText
+			? <p className={`mdc-textfield-helptext ${showErrorText ? 'mdc-textfield-helptext--validation-msg' : ""}`}>{
+				showErrorText ? errorText : hintText}</p>
+			: undefined;
+		//required={false} pattern=".{8,}"
+
+		return (
+			<div id={"tf-" + input.name} className="bs-field-container">
+				<div className={"mdc-textfield mdc-textfield--upgraded" + tfClass}>
+					<input {...input} type={type !== undefined ? type : "text"} id="tf-box" className={"mdc-textfield__input"}/>
+					<label htmlFor="tf-box" className={"mdc-textfield__label_ " + labelClasses}>{label || floatingLabelText}</label>
+					<div className={`mdc-textfield__bottom-line ${meta.active ? 'mdc-textfield__bottom-line--active' : ''}`}/>
+				</div>
+				{message}
+			</div>
+		);
+	}
+
+const renderTextField =
+	({ input, meta, label, floatingLabelText, hintText, errorText, type, hasBox = false, ...custom }) => {
+		if (type === "checkbox") {
+			return <BCheckBox
+						label={label}
+						input={input}
+						meta={meta}
+						type="checkbox"
+						{...custom}/>;
+
+		}
+		return <BTextInput
+					hintText={hintText}
+					floatingLabelText={floatingLabelText}
+					label={label}
+					errorText={meta.touched && meta.error}
+					input={input}
+					meta={meta}
+					hasBox={hasBox}
+					type={type}
+					{...custom}/>;
+	};
+const renderDataPicker =
+	({ input, meta,  floatingLabelText, maxDate, autoOk = true}) => {
+		return <div></div>;
+		/*	{...input} {...meta}
+			floatingLabelText={floatingLabelText}
+			autoOk={autoOk}
+			minDate={this.state.minDate}
+			maxDate={maxDate}
+			disableYearSelection={this.state.disableYearSelection}
+/>;	  */
+	}
+let RegFormComponent = class RegFormC extends React.Component<RegFormProps, IRegFormState> {
+
+
+	handleNextStepTap = () => {
+		this.setState({
+			step: this.state.step === 3 ? 0 : this.state.step + 1
+		});
+	}
+	handleLoadProfile = () => {
+		let p = Api.loadProfileAsync(this.state.regCode).then(
+			(data) => {
+				data.phone = normalizePhone(data.phone);
+				this.props.dispatch(ProfileActions.setProfileLoaded(data));
+				this.setState({ ...data });
+
+			});
+		//this.props.loadProfile(this.state.regCode, this.props.dispatch);
+
+	}
+	handleChange = (ev) => {
+		let state = { ...this.state };
+		state[ev.target.name] = ev.target.value;
+		this.setState(state);
+	}
+	handleSendSMS = () => {
+		//	let p = Api.sendSMSCodeAsync("7"+this.state.phone).then((data)=>{
+		let state = {} as IRegFormState;
+		state.smsIsSended = true;
+		state.sendedSmsCode = "33756"; //data.code;
+		this.setState(state);
+		//})
+	}
+	handleValidateSMS = () => {
+		let state: IRegFormState = { ...this.state, phoneIsValid: this.state.smsCode == this.state.sendedSmsCode };
+
+		if (state.phoneIsValid != this.state.phoneIsValid)
+			this.setState(state);
+	}
+
+	constructor(props) {
+		super(props);
+		let step = props.initialValues.regCodeIsValid ? 1 : 0;
+		step = props.initialValues.phoneIsValid ? 2 : step;
+		this.state = {
+			...props.initialValues,
+			step: step,
+			showDebug: false,
+			phoneIsValid: false,
+			smsIsSended: false
+		};
+	}
+
+	render() {
+		let step = this.state.regCodeIsValid ? 1 : 0;
+		step += this.state.phoneIsValid ? 1 : 0;
+
+		const phoneValidation = () =>
+			!this.state.smsIsSended
+			? <div>
+				  <Field name="phone"
+						label="Номер телефона"
+						hintText="Введите первые семь цифр телефонного номера без 8 и +7."
+						errorText="Необходимо ввести коректный номер телефона."
+						component={renderTextField} normalize={normalizePhone} onChange={this.handleChange}
+						required={true} hasBox={true} type="text"/>
+				  <FlatButton label="Отправить код" primary={true} onTouchTap={this.handleSendSMS}/>
+			  </div>
+			: <div>
+				  <Field name="smsCode"
+						label="Проверочный код"
+						hintText="Введите пять цифр кода из SMS отправленного на указанный номер."
+						errorText="Необходимо ввести код из SMS."
+						component={renderTextField} onChange={this.handleChange} type="text" hasBox={true}/>
+				  <FlatButton label="Проверить" primary={true} onTouchTap={this.handleValidateSMS}/>
+			  </div>;
+
+		const maxDate = new Date(Date.now());
+		const maxDateString = maxDate.toLocaleDateString('ru-RU');
+		// Форматирование ниже предполагает, что местный часовой пояс равен
+		// America/Los_Angeles для локали США
+
+		// В америкаском английском используется порядок месяц-день-год
+	//	console.log(date.toLocaleDateString('ru-RU'));
+
+	/*	this.state = {
+			minDate: minDate,
+			maxDate: maxDate,
+			autoOk: false,
+			disableYearSelection: false,
+		};}	*/
+
+		let n1done = false;
+		return (<MuiThemeProvider muiTheme={muiTheme}>
+			        <div className="bs-form">
+
+				        <Stepper activeStep={step} orientation="vertical">
+					        <Step key={1}>
+						        <StepLabel>Код регистрации</StepLabel>
+						        <StepContent>
+							        <Field name="regCode" component={renderTextField}
+											hintText="Код регистрации напечатан в нижней части кассового чека. Уточните у кассира."
+											floatingLabelText="Код регистрации"
+											errorText="Код ненайден."
+											onChange={this.handleChange} type="text" hasBox={true}/>
+							        <FlatButton label="Далее" primary={true} onTouchTap={this.handleLoadProfile}/>
+						        </StepContent>
+					        </Step>
+					        <Step key={2}>
+						        <StepLabel>Проверка телефона</StepLabel>
+						        <StepContent>
+							        {phoneValidation()}
+						        </StepContent>
+					        </Step>
+					        <Step key={3}>
+						        <StepLabel>Анкета покупателя</StepLabel>
+						        <StepContent>
+							        <div className="bs-container">
+								        <div className="row">
+									        <div className="col-2">
+										        <Field name="lastName"
+														label="Фамилия"
+														hintText=""
+														errorText=""
+														type="text"
+														component={renderTextField}
+														onChange={this.handleChange}/>
+										        <Field name="firstName"
+														label="Имя"
+														hintText=""
+														errorText=""
+														component={renderTextField}
+														type="text"
+														onChange={this.handleChange}/>
+										        <Field name="midName"
+														label="Отчество"
+														hintText=""
+														errorText=""
+														type="text"
+														component={renderTextField}
+														onChange={this.handleChange}/>
+									        </div>
+									        <div className="col-2">
+										        <div className="radio-col">
+											        <label className="radio-col--label">Пол</label>
+													<div className="mdc-form-field">
+														<div className="mdc-radio mdc-ripple-upgraded mdc-ripple-upgraded--unbounded">
+															<input className="mdc-radio__native-control" type="radio" name="gender" value="male"/>
+															<div className="mdc-radio__background">
+																<div className="mdc-radio__outer-circle"></div>
+																<div className="mdc-radio__inner-circle"></div>
+															</div>
+														</div>
+														<label id="ex0-default-radio2-label" htmlFor="ex0-default-radio2">Мужской</label>
+													</div>
+											        <div className="mdc-form-field">
+												        <div className="mdc-radio mdc-ripple-upgraded mdc-ripple-upgraded--unbounded">
+															<input className="mdc-radio__native-control" type="radio" name="gender" value="female"/>
+													        <div className="mdc-radio__background">
+														        <div className="mdc-radio__outer-circle"></div>
+														        <div className="mdc-radio__inner-circle"></div>
+													        </div>
+												        </div>
+												        <label id="ex0-default-radio2-label" htmlFor="ex0-default-radio2">Женский</label>
+											        </div>
+												</div>
+												<Field name="hasChildren"
+														label="Есть дети"
+														hintText=""
+														errorText=""
+														type="checkbox"
+														component={renderTextField}
+														onChange={this.handleChange} />
+												<DatePicker name="birthday"
+													floatingLabelText="День рождения"
+													autoOk={true}
+													formatDate={new DateTimeFormat('ru-RU', {
+														day: 'numeric',
+														month: 'long',
+														year: 'numeric',
+													}).format}
+													okLabel="OK"
+													cancelLabel="Отмена"
+													locale="ru"	style={{width:"auto"}} />
+
+									        </div>
+								        </div>
+								        <div className="row">
+									        <div className="col-3"></div>
+									        <div className="col-3">
+										        <Field name="email"
+														label="Электронная почта"
+														hintText=""
+														errorText=""
+														type="text"
+														component={renderTextField}
+														onChange={this.handleChange}/>
+									        </div>
+									        <div className="col-3"></div>
+								        </div>
+								        <div className="row">
+								        </div>
+
+							        </div>
+							        <FlatButton label="Далее"
+												primary={true}
+												onTouchTap={this.handleNextStepTap}/>
+						        </StepContent>
+					        </Step>
+					        <Step key={4}>
+						        <StepLabel>Соглашение</StepLabel>
+						        <StepContent>
+							        <FlatButton label="Далее" primary={true} onTouchTap={this.handleNextStepTap}/>
+						        </StepContent>
+					        </Step>
+				        </Stepper>
+			        </div>
+		        </MuiThemeProvider>
+		);
+	}
+};
+//component={renderDataPicker}
+//onChange={this.handleChange}
+//maxDate={maxDate}
+
+const validate = (values: Readonly<IRegFormState>): FormErrors<IRegFormState> => {
+	const errors: FormErrors<IRegFormState> = {};
+
+	return errors;
+};
+
+let RegForm = reduxForm<IRegFormState, RegFormProps>({
+	form: 'RegForm',
+	enableReinitialize: true,
+	validate: (values: Readonly<IRegFormState>, props: RegFormProps) => {
+		const errors: FormErrors<IRegFormState> = {};
+		return errors;
+	},
+	onSubmit: (values, dispatch, props) => {
+		// tslint:disable-next-line:no-console
+		console.log('===submit===');
+		// tslint:disable-next-line:no-console
+		console.log(values.phone);
+	}
+})(RegFormComponent);
+
+
+// MapStateToProps<RootState, RegFormState> =
+let mapS2P = (state: RootState): IRegFormState => {
+	return {
+		firstName: state.profile.firstName,
+		lastName: state.profile.lastName,
+		phone: state.profile.phone,
+		regCode: state.profile.regCode,
+		regCodeIsValid: state.profile.regCodeIsValid,
+		phoneIsValid: state.profile.phoneIsValid
+
+	};
+
+};
+
+
+RegForm = connect(
+	state => ({
+		initialValues: state.profile // pull initial values from account reducer
+	}),
+	{ load: ProfileActions.loadProfileAsync } // bind account loading action creator
+)(RegForm);
+
+
+//export const RegFormContainer = connect<RootState, IRegFormProps>(mapS2P)(RegForm);
+
+export default RegForm;

@@ -1,0 +1,14 @@
+{
+  "commands": {
+    "build_watch": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c build_watch.cmd"
+    },
+    "wp-dev-server": {
+      "fileName": "cmd.exe",
+      "workingDirectory": ".",
+      "arguments": "/c wp-dev-server.cmd"
+    }
+  }
+}

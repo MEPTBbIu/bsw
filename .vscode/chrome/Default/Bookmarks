@@ -1,0 +1,39 @@
+{
+   "checksum": "699348812ad0fb889f6f02ac66923bd9",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13155088929687590",
+            "id": "6",
+            "meta_info": {
+               "last_visited_desktop": "13155099079407780"
+            },
+            "name": "Код регистрации",
+            "type": "url",
+            "url": "https://form.jotform.co/73167262227860"
+         } ],
+         "date_added": "13155086350630073",
+         "date_modified": "13155088929687590",
+         "id": "1",
+         "name": "Панель закладок",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13155086350630080",
+         "date_modified": "0",
+         "id": "2",
+         "name": "Другие закладки",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13155086350630081",
+         "date_modified": "0",
+         "id": "3",
+         "name": "Закладки на мобильном",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
